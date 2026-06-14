@@ -1,0 +1,93 @@
+/* ============================================================================
+   tokens.css — дизайн-токены ООО «Негабарит 12»
+   Единственный источник правды по цвету/типографике/ритму.
+   Меняешь бренд здесь — меняется весь сайт. Не хардкодить hex в компонентах.
+   Палитра взята пипеткой из логотипа (красная + оранжевая версии) — см. ТЗ §2.
+   ============================================================================ */
+
+:root {
+  /* --- Цвет: индустриальный «тяжёлый металл» --- */
+  --bg:        #0E1116;  /* почти чёрный графит — премиум-фон под фото/видео */
+  --bg-2:      #161B22;  /* поверхность карточек */
+  --bg-3:      #1C2330;  /* карточка на карточке / hover-поверхность */
+  --ink:       #F2F4F7;  /* основной текст */
+  --ink-muted: #98A2B3;  /* вторичный текст */
+  --ink-dim:   #667085;  /* третичный / подписи */
+
+  --brand-red: #BB2934;  /* ИДЕНТИЧНОСТЬ: логотип, знак «N», рамки, индикаторы */
+  --brand-red-hi: #D33543;
+  --action:    #DF7038;  /* ДЕЙСТВИЕ: все CTA, активные/hover, акцентные цифры */
+  --action-hi: #F08544;  /* hover кнопок */
+  --action-press: #C95F2C;
+
+  --success:   #1FB36B;  /* галочки гарантий */
+  --warn:      #FFB200;  /* плашки «штраф 400 000 ₽» */
+  --line:      #2A313A;  /* границы */
+  --line-soft: #222933;
+
+  /* Семантические алиасы (использовать их, а не сырьё выше) */
+  --surface:        var(--bg-2);
+  --surface-raised: var(--bg-3);
+  --on-surface:     var(--ink);
+  --on-surface-2:   var(--ink-muted);
+  --cta:            var(--action);
+  --cta-hover:      var(--action-hi);
+  --cta-ink:        #1A1207;   /* текст на оранжевой кнопке — тёмный, контраст >4.5:1 */
+
+  /* --- Подложки под текст поверх медиа (читабельность — закон №3 ТЗ) --- */
+  --scrim:        linear-gradient(180deg, rgba(14,17,22,.15) 0%, rgba(14,17,22,.55) 55%, rgba(14,17,22,.92) 100%);
+  --scrim-strong: linear-gradient(180deg, rgba(14,17,22,.55) 0%, rgba(14,17,22,.75) 100%);
+
+  /* --- Зебра-мотив из логотипа (предупреждающая разметка негабарита) --- */
+  --zebra-dark:   repeating-linear-gradient(-45deg, #14181F 0 14px, #0E1116 14px 28px);
+  --zebra-orange: repeating-linear-gradient(-45deg, var(--action) 0 14px, #1A1A1A 14px 28px);
+
+  /* --- Типографика --- */
+  --font-head: "Inter Tight", "Arial Narrow", system-ui, sans-serif; /* гротеск с характером, перекликается с лого */
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Шкала размеров (fluid, clamp). H1 — «exaggerated minimalism»: огромно. */
+  --fs-h1:   clamp(2.1rem, 5.4vw, 4.25rem);
+  --fs-h2:   clamp(1.9rem, 4.5vw, 3.4rem);
+  --fs-h3:   clamp(1.3rem, 2.6vw, 1.9rem);
+  --fs-lead: clamp(1.05rem, 1.6vw, 1.3rem);
+  --fs-body: clamp(1rem, 1.1vw, 1.12rem);   /* ≥16px на мобильном — без авто-зума iOS */
+  --fs-sm:   0.9rem;
+  --fs-xs:   0.78rem;
+  --fs-counter: clamp(2.6rem, 6vw, 4.5rem);
+
+  --lh-tight: 1.04;
+  --lh-head:  1.1;
+  --lh-body:  1.6;
+  --tracking-head: -0.02em;  /* плотный трекинг заголовков */
+
+  /* --- Ритм / сетка (шаг 4px) --- */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px;
+  --space-9: 96px;
+  --container: 1200px;
+  --section-pad: clamp(80px, 12vw, 140px); /* большие вертикальные отступы — «воздух» */
+  --gutter: clamp(16px, 5vw, 32px);
+
+  /* --- Форма / тень --- */
+  --radius:    14px;
+  --radius-sm: 10px;
+  --radius-lg: 20px;
+  --shadow:    0 10px 30px -12px rgba(0,0,0,.55);
+  --shadow-lg: 0 24px 60px -20px rgba(0,0,0,.7);
+  --ring: 0 0 0 3px rgba(223,112,56,.45); /* focus-ring оранжевый */
+
+  /* --- Анимация --- */
+  --dur-fast: 150ms;
+  --dur:      240ms;
+  --dur-slow: 400ms;
+  --ease-out: cubic-bezier(.22,.61,.36,1);
+  --ease-in:  cubic-bezier(.55,.06,.68,.19);
+
+  /* --- Слои (z-index) --- */
+  --z-base: 0; --z-sticky: 40; --z-bar: 60; --z-float: 70; --z-modal: 100; --z-preloader: 1000;
+
+  /* Высота фикс-элементов — для отступов контента */
+  --header-h: 64px;
+  --mobilebar-h: 64px;
+}

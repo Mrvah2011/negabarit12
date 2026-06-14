@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Перевозка негабаритных грузов по России и СНГ — ООО «Негабарит 12», Йошкар-Ола</title>
+  <meta name="description" content="Перевозим негабарит с фиксированной ценой в договоре. Собственный автопарк тралов, оформление спецразрешений КТГ, страхование до 200 млн ₽, GPS-трекинг, логист 24/7. Работаем с 2008 года." />
+  <meta name="theme-color" content="#0E1116" />
+  <link rel="icon" href="public/logo/logo-red.png" />
+
+  <!-- OG для шеринга -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ООО «Негабарит 12» — перевозка негабаритных грузов" />
+  <meta property="og:description" content="Фиксированная цена в договоре, собственные тралы, КТГ за наш счёт, страховка до 200 млн ₽." />
+  <meta property="og:image" content="public/img/hero-poster.jpg" />
+
+  <!-- Шрифты: Inter Tight (заголовки) + Inter (текст). display=swap — без FOIT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Стили: токены → база → секции -->
+  <link rel="stylesheet" href="src/styles/tokens.css" />
+  <link rel="stylesheet" href="src/styles/base.css" />
+  <link rel="stylesheet" href="src/styles/sections.css" />
+</head>
+<body>
+
+<!-- ════════ ПРЕЛОАДЕР hero-секвенции (зебра-полоса прогресса) ════════ -->
+<div id="preloader" class="preloader" role="status" aria-live="polite">
+  <div class="preloader__inner">
+    <img src="public/logo/logo-orange.png" alt="" class="preloader__logo" width="120" height="120" />
+    <div class="preloader__bar"><span class="preloader__bar-fill"></span></div>
+    <div class="preloader__pct"><span id="preloader-pct">0%</span> · готовим видеоскролл</div>
+  </div>
+</div>
+
+<!-- ════════ STICKY HEADER (появляется после hero) ════════ -->
+<header class="header">
+  <div class="container header__row">
+    <a href="#hero" class="header__logo" data-scroll="#hero" aria-label="Негабарит 12 — на главную">
+      <img src="public/logo/logo-red.png" alt="ООО «Негабарит 12»" width="44" height="44" />
+      <span>НЕГАБАРИТ&nbsp;12</span>
+    </a>
+    <nav class="header__actions">
+      <a class="header__phone" href="tel:+78362495320">+7&nbsp;(8362)&nbsp;49-53-20</a>
+      <button class="btn btn--primary header__cta" data-scroll="#quiz">Рассчитать стоимость</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ════════ ЭКРАН 1 — HERO + ВИДЕОСКРОЛЛ ════════ -->
+  <section id="hero" class="hero">
+    <div class="hero__sticky">
+      <!-- постер: мгновенный first paint и fallback для mobile/reduced-motion -->
+      <img class="hero__poster" src="public/img/hero-poster.webp" alt="Негабаритный груз на трале в сопровождении на трассе" />
+      <!-- canvas: покадровая секвенция (рисует sequence.js) -->
+      <canvas id="hero-canvas" class="hero__canvas" aria-hidden="true"></canvas>
+      <div class="hero__scrim"></div>
+
+      <!-- мини-CTA «Заказать звонок» в углу -->
+      <button class="hero__callback" data-modal-open="modal-callback">Заказать звонок</button>
+
+      <div class="hero__content container">
+        <p class="eyebrow">ООО «Негабарит 12» · перевозки по РФ, СНГ и Китаю с 2008 года</p>
+        <h1 class="hero__h1">Перевезём негабарит<br>с&nbsp;фиксированной ценой в&nbsp;договоре</h1>
+        <p class="lead hero__sub">Собственный автопарк тралов, а не перепродажа заявок с Авито. Оформляем спецразрешения КТГ за свой счёт и несём полную материальную ответственность за груз.</p>
+        <ul class="hero__bullets">
+          <li><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Цена в договоре — без доплат за мосты и ГИБДД</li>
+          <li><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg> Страхование груза до 200 млн ₽</li>
+          <li><svg class="icon icon--accent" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> GPS-трекинг и логист на связи 24/7</li>
+        </ul>
+        <div class="hero__cta">
+          <button class="btn btn--primary btn--lg" data-scroll="#quiz">Рассчитать стоимость с гарантией цены</button>
+          <a class="btn btn--ghost btn--lg" href="tel:+78362495320">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>
+            Позвонить
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__scrollhint" aria-hidden="true">
+        <span>Листайте — груз поедет</span>
+        <svg viewBox="0 0 24 24" class="icon"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 2 — КВИЗ-КАЛЬКУЛЯТОР ════════ -->
+  <section id="quiz-section" class="section">
+    <div class="container">
+      <div class="section-head center" data-reveal>
+        <h2 class="section-title center" style="margin-inline:auto">Узнайте стоимость перевозки за 3 минуты</h2>
+        <p class="lead section-intro" style="margin-inline:auto">В расчёт уже включены страховка, сопровождение и оформление КТГ. Сумма фиксируется в договоре и не меняется в пути.</p>
+      </div>
+
+      <div id="quiz" class="quiz card" data-reveal>
+        <div class="quiz__bar"><span class="quiz__bar-fill"></span></div>
+        <div class="quiz__counter muted" aria-live="polite">Шаг 1 из 5</div>
+
+        <!-- Шаг 1: тип груза -->
+        <div class="quiz__step is-active" data-step="1" data-key="cargo_type">
+          <h3>Что везём?</h3>
+          <div class="quiz__choices">
+            <button class="quiz__choice" data-value="spec">Спецтехника</button>
+            <button class="quiz__choice" data-value="equip">Промоборудование</button>
+            <button class="quiz__choice" data-value="metal">Конструкции / металл</button>
+            <button class="quiz__choice" data-value="long">Длинномер</button>
+            <button class="quiz__choice" data-value="other">Другое</button>
+          </div>
+        </div>
+
+        <!-- Шаг 2: габариты -->
+        <div class="quiz__step" data-step="2">
+          <h3>Габариты и вес</h3>
+          <div class="quiz__grid">
+            <label class="field"><span class="field__label">Длина, м</span><input class="quiz__input" name="dim_l" inputmode="decimal" placeholder="12,5" required /><span class="field__error"></span></label>
+            <label class="field"><span class="field__label">Ширина, м</span><input class="quiz__input" name="dim_w" inputmode="decimal" placeholder="3,4" required /><span class="field__error"></span></label>
+            <label class="field"><span class="field__label">Высота, м</span><input class="quiz__input" name="dim_h" inputmode="decimal" placeholder="3,8" required /><span class="field__error"></span></label>
+            <label class="field"><span class="field__label">Вес, т</span><input class="quiz__input" name="weight" inputmode="decimal" placeholder="34" required /><span class="field__error"></span></label>
+          </div>
+          <p class="quiz__hint muted">Не знаете точно — укажите примерно, уточним при звонке.</p>
+          <div class="quiz__nav"><button class="btn btn--ghost" data-prev>Назад</button><button class="btn btn--primary" data-next>Далее</button></div>
+        </div>
+
+        <!-- Шаг 3: маршрут -->
+        <div class="quiz__step" data-step="3">
+          <h3>Маршрут</h3>
+          <div class="quiz__grid quiz__grid--2">
+            <label class="field"><span class="field__label">Откуда</span><input class="quiz__input" name="route_from" placeholder="Йошкар-Ола" required /><span class="field__error"></span></label>
+            <label class="field"><span class="field__label">Куда</span><input class="quiz__input" name="route_to" placeholder="Сургут" required /><span class="field__error"></span></label>
+          </div>
+          <div class="quiz__nav"><button class="btn btn--ghost" data-prev>Назад</button><button class="btn btn--primary" data-next>Далее</button></div>
+        </div>
+
+        <!-- Шаг 4: срочность -->
+        <div class="quiz__step" data-step="4" data-key="urgency">
+          <h3>Когда нужно?</h3>
+          <div class="quiz__choices">
+            <button class="quiz__choice" data-value="urgent">Срочно (24–48 ч)</button>
+            <button class="quiz__choice" data-value="week">На этой неделе</button>
+            <button class="quiz__choice" data-value="plan">Планирую заранее</button>
+          </div>
+        </div>
+
+        <!-- Шаг 5: контакты (это .jsform — финальный сабмит) -->
+        <div class="quiz__step" data-step="5">
+          <h3>Куда отправить расчёт?</h3>
+          <form class="jsform quiz__form" data-event="lead_calc" novalidate>
+            <!-- скрытые поля: параметры груза из шагов 1–4 -->
+            <input type="hidden" name="cargo_type" /><input type="hidden" name="dim_l" /><input type="hidden" name="dim_w" />
+            <input type="hidden" name="dim_h" /><input type="hidden" name="weight" /><input type="hidden" name="route_from" />
+            <input type="hidden" name="route_to" /><input type="hidden" name="urgency" />
+            <!-- honeypot (скрыт от людей, ловит ботов) -->
+            <input type="text" name="company_site" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+            <div class="quiz__grid quiz__grid--2">
+              <label class="field"><span class="field__label">Имя*</span><input name="name" autocomplete="name" required /><span class="field__error"></span></label>
+              <label class="field"><span class="field__label">Телефон*</span><input type="tel" name="phone" autocomplete="tel" required /><span class="field__error"></span></label>
+            </div>
+            <fieldset class="field field--radio">
+              <span class="field__label">Куда удобнее ответить?</span>
+              <label class="radio"><input type="radio" name="messenger" value="whatsapp" checked /> WhatsApp</label>
+              <label class="radio"><input type="radio" name="messenger" value="telegram" /> Telegram</label>
+            </fieldset>
+            <label class="field field--check">
+              <input type="checkbox" name="consent" required />
+              <span>Согласен с <a href="#" data-scroll="#legal">политикой конфиденциальности</a></span>
+              <span class="field__error"></span>
+            </label>
+            <p class="form__error" role="alert" hidden></p>
+            <div class="quiz__nav">
+              <button class="btn btn--ghost" type="button" data-prev>Назад</button>
+              <button class="btn btn--primary btn--lg" type="submit">Зафиксировать стоимость в договоре</button>
+            </div>
+            <p class="quiz__micro muted">Перезвоним в течение 15 минут. Без спама и навязывания.</p>
+
+            <div class="thanks" data-thanks hidden>
+              <svg class="icon icon--success" viewBox="0 0 24 24" width="40" height="40"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
+              <h3>Готово. Логист перезвонит в течение 15 минут.</h3>
+              <p class="muted">Зафиксируем цену в договоре. Если срочно — +7&nbsp;(8362)&nbsp;49-53-20.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="zebra-divider" aria-hidden="true"></div>
+
+  <!-- ════════ ЭКРАН 3 — ЦИФРЫ ════════ -->
+  <section class="section section--tight stats">
+    <div class="container">
+      <!-- Цифры. 12 000+ и 30+ — ПРИМЕРЫ (заглушки), заменить на подтверждённые заказчиком. -->
+      <div class="stats__grid" data-reveal-stagger>
+        <div class="stat"><span class="stat__num tabular" data-count="2008">2008</span><span class="stat__label">год основания · 17 лет на рынке</span></div>
+        <div class="stat"><span class="stat__num tabular"><span data-count="12000" data-suffix="+">12 000+</span></span><span class="stat__label">перевозок выполнено</span></div>
+        <div class="stat"><span class="stat__num tabular"><span data-count="30" data-suffix="+">30+</span></span><span class="stat__label">единиц собственной техники</span></div>
+        <div class="stat"><span class="stat__num tabular">до <span data-count="200">200</span> млн ₽</span><span class="stat__label">страховое покрытие груза</span></div>
+        <div class="stat"><span class="stat__num">24/7</span><span class="stat__label">логист на связи</span></div>
+        <div class="stat"><span class="stat__num stat__num--text">РФ · СНГ · Китай</span><span class="stat__label">география перевозок</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 4 — JTBD «С кем мы работаем» ════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">С чем приходят</p>
+        <h2 class="section-title">Найдите свою задачу — расчёт подставится сам</h2>
+      </div>
+      <div class="grid md:cols-2 lg:cols-3 jtbd" data-reveal-stagger>
+        <button class="jtbd-card" data-cargo="spec" data-cargo-label="Спецтехника">
+          <svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M3 17h13v-5l-3-4H3zM16 17h5v-3l-2-2h-3"/><circle cx="6.5" cy="18.5" r="2"/><circle cx="18" cy="18.5" r="2"/></svg>
+          <h3>Перевезти спецтехнику</h3><p class="muted">Экскаваторы, краны, бульдозеры с площадки на объект.</p><span class="jtbd-card__go">Рассчитать →</span>
+        </button>
+        <button class="jtbd-card" data-cargo="equip" data-cargo-label="Промоборудование">
+          <svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg>
+          <h3>Доставить промоборудование</h3><p class="muted">Станки, турбины, трансформаторы, ёмкости на завод/стройку.</p><span class="jtbd-card__go">Рассчитать →</span>
+        </button>
+        <button class="jtbd-card" data-cargo="long" data-cargo-label="Длинномер и конструкции">
+          <svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M2 12h20M2 9v6M22 9v6"/></svg>
+          <h3>Вывезти длинномер и конструкции</h3><p class="muted">Балки, фермы, опоры, трубы большого диаметра.</p><span class="jtbd-card__go">Рассчитать →</span>
+        </button>
+        <button class="jtbd-card" data-cargo="project" data-cargo-label="Проектная перевозка">
+          <svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h12"/></svg>
+          <h3>Проектная перевозка под ключ</h3><p class="muted">Разово или серией, с маршрутом, разрешениями и сопровождением.</p><span class="jtbd-card__go">Рассчитать →</span>
+        </button>
+        <button class="jtbd-card" data-cargo="intl" data-cargo-label="Негабарит в СНГ/Китай">
+          <svg class="icon icon--accent" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>
+          <h3>Перевезти негабарит в СНГ/Китай</h3><p class="muted">Международное направление с таможенным оформлением.</p><span class="jtbd-card__go">Рассчитать →</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 5 — БЕЗОПАСНОСТЬ И РАЗРЕШЕНИЯ (КТГ) ════════ -->
+  <section class="section ktg">
+    <div class="container ktg__row">
+      <div class="ktg__text" data-reveal>
+        <span class="badge badge--warn"><svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Штраф Ространснадзора до 400 000 ₽</span>
+        <h2 class="section-title">Работаем «в белую»: оформляем официальные спецразрешения КТГ</h2>
+        <p class="lead">С нами вы не получите штраф до 400 000 ₽. Берём всю бюрократию на себя: согласование маршрута с уполномоченными органами, разрешение на негабарит, машины прикрытия. Груз едет легально и без задержек на постах ГИБДД.</p>
+        <span class="badge badge--success"><svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M20 6 9 17l-5-5"/></svg> Межрегиональное разрешение по РФ — от 12 000 ₽, за 7 дней</span>
+        <div><button class="btn btn--primary" data-modal-open="modal-callback">Узнать, нужно ли разрешение для моего груза</button></div>
+      </div>
+      <!-- Артефакт: скан разрешения. Плейсхолдер — заказчик пришлёт реальный скан. -->
+      <figure class="ktg__art artefact" data-reveal data-parallax="0.08">
+        <div class="artefact__placeholder">
+          <svg class="icon" viewBox="0 0 24 24" width="48" height="48"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+          <span>Скан межрегионального разрешения КТГ</span>
+        </div>
+        <figcaption>Реальное разрешение, а не «договоримся на месте». <em class="muted">(артефакт пришлёт заказчик)</em></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 6 — АВТОПАРК (свайп-лента) ════════ -->
+  <section class="section autopark">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Техника своя</p>
+        <h2 class="section-title">Собственный автопарк тягачей и тралов — не посредники</h2>
+        <p class="lead section-intro">Тягачи DAF, Volvo, Renault и тралы под разный вес и габариты. Подберём платформу под вашу задачу, а не «что нашлось на бирже».</p>
+      </div>
+    </div>
+    <!-- горизонтальная свайп-лента с явными индикаторами (без скрытого drag-only) -->
+    <div class="autopark__track" role="list">
+      <figure class="autopark__item" role="listitem"><img loading="lazy" decoding="async" src="public/img/autopark/photo-04.webp" alt="Тягач Volvo с тралом и спецтехникой" /><figcaption>Volvo + трал-низкорамник</figcaption></figure>
+      <figure class="autopark__item" role="listitem"><img loading="lazy" decoding="async" src="public/img/autopark/photo-44.webp" alt="Тягач с длинномерным грузом на трассе" /><figcaption>Перевозка длинномера</figcaption></figure>
+      <figure class="autopark__item" role="listitem"><img loading="lazy" decoding="async" src="public/img/autopark/photo-12.webp" alt="Автопарк тягачей компании" /><figcaption>Часть собственного автопарка</figcaption></figure>
+      <figure class="autopark__item" role="listitem"><img loading="lazy" decoding="async" src="public/img/autopark/photo-09.webp" alt="Тягач с цистерной в зимней перевозке" /><figcaption>Цистерна, зимний маршрут</figcaption></figure>
+      <figure class="autopark__item" role="listitem"><img loading="lazy" decoding="async" src="public/img/autopark/photo-33.webp" alt="Volvo с промышленным грузом" /><figcaption>Промоборудование на трале</figcaption></figure>
+      <figure class="autopark__item" role="listitem"><img loading="lazy" decoding="async" src="public/img/autopark/photo-47.webp" alt="Низкорамный трал с тяжёлой техникой" /><figcaption>Низкорамник под тяжёлую технику</figcaption></figure>
+      <figure class="autopark__item" role="listitem"><img loading="lazy" decoding="async" src="public/img/autopark/photo-40.webp" alt="Тягач с ёмкостями большого диаметра" /><figcaption>Ёмкости большого диаметра</figcaption></figure>
+      <figure class="autopark__item" role="listitem"><img loading="lazy" decoding="async" src="public/img/autopark/photo-01.webp" alt="Спецтехника на трале 18,1×3,1×4,1 м, 96 т" /><figcaption>18,1 × 3,1 × 4,1 м · 96 т</figcaption></figure>
+    </div>
+  </section>
+
+  <div class="zebra-divider" aria-hidden="true"></div>
+
+  <!-- ════════ ЭКРАН 7 — ЭТАПЫ РАБОТЫ (pinned scrollytelling) ════════ -->
+  <section id="process" class="section process">
+    <div class="process__pin">
+      <div class="container process__inner">
+        <div class="process__left">
+          <p class="eyebrow">Как мы работаем</p>
+          <h2 class="section-title">7 этапов — каждый с артефактом, а не на словах</h2>
+          <ol class="process__steps">
+            <li class="process__step is-active"><span class="process__n">01</span><div><h3>Заявка и расчёт</h3><p class="muted">Считаем точную стоимость с учётом габаритов, маршрута, разрешений и сопровождения.</p></div></li>
+            <li class="process__step"><span class="process__n">02</span><div><h3>Договор с фиксированной ценой</h3><p class="muted">Сумма закрепляется в договоре и не меняется ни на рубль. Без доплат за топливо, мосты и ГИБДД.</p></div></li>
+            <li class="process__step"><span class="process__n">03</span><div><h3>Оформление КТГ</h3><p class="muted">Получаем официальное спецразрешение и согласовываем маршрут.</p></div></li>
+            <li class="process__step"><span class="process__n">04</span><div><h3>Подача трала</h3><p class="muted">Подбираем платформу под вес и габариты, выезд оперативно.</p></div></li>
+            <li class="process__step"><span class="process__n">05</span><div><h3>Погрузка и крепление по ГОСТу</h3><p class="muted">Крепим сертифицированными системами и присылаем фотоотчёт до старта двигателя.</p></div></li>
+            <li class="process__step"><span class="process__n">06</span><div><h3>Перевозка с GPS-трекингом</h3><p class="muted">Логист на связи 24/7, видите перемещение груза в реальном времени.</p></div></li>
+            <li class="process__step"><span class="process__n">07</span><div><h3>Выгрузка и закрытие</h3><p class="muted">Сдаём груз без царапин, оформляем закрывающие документы.</p></div></li>
+          </ol>
+          <button class="btn btn--primary" data-scroll="#quiz">Запустить перевозку по этим этапам</button>
+        </div>
+
+        <div class="process__right">
+          <div class="process__dots" aria-hidden="true">
+            <span class="process__dot is-active"></span><span class="process__dot"></span><span class="process__dot"></span><span class="process__dot"></span><span class="process__dot"></span><span class="process__dot"></span><span class="process__dot"></span>
+          </div>
+          <!-- артефакты: фото где есть, плейсхолдер где документ пришлёт заказчик -->
+          <figure class="process__art artefact is-active"><div class="artefact__placeholder"><svg class="icon" viewBox="0 0 24 24" width="44" height="44"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 20h10M8 8h8M8 12h5"/></svg><span>Скрин расчёта стоимости</span></div></figure>
+          <figure class="process__art artefact"><div class="artefact__placeholder"><svg class="icon" viewBox="0 0 24 24" width="44" height="44"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span>Образец договора (фрагмент)</span></div></figure>
+      <figure class="process__art artefact"><div class="artefact__placeholder"><svg class="icon" viewBox="0 0 24 24" width="44" height="44"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M9 15l2 2 4-4"/></svg><span>Скан разрешения КТГ</span></div></figure>
+      <figure class="process__art artefact"><img loading="lazy" decoding="async" src="public/img/autopark/photo-12.webp" alt="Подача трала под погрузку" /></figure>
+      <figure class="process__art artefact"><img loading="lazy" decoding="async" src="public/img/autopark/photo-14.webp" alt="Погрузка и крепление груза краном" /></figure>
+      <figure class="process__art artefact"><div class="artefact__placeholder"><svg class="icon" viewBox="0 0 24 24" width="44" height="44"><path d="M12 22s8-4.5 8-11a8 8 0 1 0-16 0c0 6.5 8 11 8 11Z"/><circle cx="12" cy="11" r="2.5"/></svg><span>Скрин GPS-мониторинга</span></div></figure>
+      <figure class="process__art artefact"><img loading="lazy" decoding="async" src="public/img/autopark/photo-33.webp" alt="Выгрузка доставленного груза" /></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 8 — СОХРАННОСТЬ + ВИДЕО-АРТЕФАКТ ════════ -->
+  <section class="section safety">
+    <div class="container">
+      <div class="section-head center" data-reveal>
+        <h2 class="section-title center" style="margin-inline:auto">Груз приедет без царапин</h2>
+        <p class="lead section-intro" style="margin-inline:auto">Крепление по ГОСТу, фотоотчёт перед выездом, страхование до 200 млн ₽ и чёткая политика компенсаций. Видите перемещение через GPS в реальном времени.</p>
+      </div>
+      <!-- реальное видео перевозки: muted/loop/playsinline, lazy через data-src -->
+      <figure class="safety__video" data-reveal>
+        <video data-src="public/video/road.mp4" poster="public/video/road-poster.webp" muted loop playsinline preload="none" aria-label="Видео реальной перевозки негабарита в сопровождении"></video>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 9 — ЦЕНА: ЧТО ВХОДИТ + МЫ vs ЧАСТНИК ════════ -->
+  <section class="section price">
+    <div class="container">
+      <div class="price__includes" data-reveal>
+        <h2 class="section-title">Что уже включено в цену</h2>
+        <ul class="checklist">
+          <li><svg class="icon icon--success" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Страхование груза</li>
+          <li><svg class="icon icon--success" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Оформление КТГ</li>
+          <li><svg class="icon icon--success" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Машины сопровождения</li>
+          <li><svg class="icon icon--success" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Крепление по ГОСТу</li>
+          <li><svg class="icon icon--success" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Логист 24/7</li>
+          <li><svg class="icon icon--success" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> GPS-трекинг</li>
+          <li><svg class="icon icon--success" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Фиксированная цена в договоре</li>
+        </ul>
+        <p class="lead">Почему мы дороже частника? Потому что всё это уже в цене — а не «доплатите по факту».</p>
+      </div>
+
+      <div class="price__compare" data-reveal>
+        <table class="compare">
+          <thead><tr><th></th><th class="compare__us">ООО «Негабарит 12»</th><th>Частник с Авито</th></tr></thead>
+          <tbody>
+            <tr><td>Цена</td><td class="compare__us">Фиксирована в договоре</td><td>«От…», растёт в пути</td></tr>
+            <tr><td>Разрешение КТГ</td><td class="compare__us">Оформляем официально</td><td>Часто едет «по-серому»</td></tr>
+            <tr><td>Ответственность</td><td class="compare__us">По договору, страховка до 200 млн ₽</td><td>Устная, без гарантий</td></tr>
+            <tr><td>Автопарк</td><td class="compare__us">Собственный</td><td>Перепродажа заявки</td></tr>
+            <tr><td>Связь</td><td class="compare__us">Личный логист 24/7</td><td>Пропадает со связи</td></tr>
+            <tr><td>Оплата</td><td class="compare__us">После доставки, перед выгрузкой</td><td>Предоплата вперёд</td></tr>
+          </tbody>
+        </table>
+        <button class="btn btn--primary btn--block" data-scroll="#quiz">Получить честный расчёт без «от…»</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 10 — ЛИЧНЫЙ ЛОГИСТ ════════ -->
+  <section class="section logist">
+    <div class="container logist__row">
+      <div data-reveal>
+        <p class="eyebrow">Связь не теряется</p>
+        <h2 class="section-title">Ваш логист на связи 24/7</h2>
+        <p class="lead">Забудьте об ожидании на горячей линии. Персональный менеджер ведёт вас от заявки до выгрузки, присылает статус груза в WhatsApp по первому запросу.</p>
+        <a class="btn btn--primary" href="https://wa.me/78362495320" target="_blank" rel="noopener">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.2-5.6A8.4 8.4 0 1 1 21 11.5Z"/></svg>
+          Написать логисту в WhatsApp
+        </a>
+      </div>
+      <div class="logist__card card" data-reveal>
+        <div class="logist__row-item"><svg class="icon icon--accent" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><div><strong>Отдел логистики</strong><br><span class="muted">сопровождение перевозки от заявки до выгрузки</span></div></div>
+        <div class="logist__row-item"><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M3 7h18v12H3zM3 7l9 6 9-6"/></svg><div><strong>Тендерный отдел</strong><br><span class="muted">работа с торгами и проектными перевозками</span></div></div>
+        <a class="logist__phone" href="tel:+78362495320">+7&nbsp;(8362)&nbsp;49-53-20</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 11 — КЕЙСЫ ════════ -->
+  <section class="section cases">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Реальные перевозки</p>
+        <h2 class="section-title">Кейсы клиентов — груз, маршрут, габариты</h2>
+      </div>
+      <div class="cases__filter" data-reveal>
+        <button class="is-active" data-filter="all">Все</button>
+        <button data-filter="equip">Оборудование</button>
+        <button data-filter="tank">Ёмкости</button>
+        <button data-filter="spec">Спецтехника</button>
+      </div>
+      <div class="cases__grid" data-reveal-stagger>
+        <article class="case-card" data-type="tank">
+          <img loading="lazy" decoding="async" src="public/img/cases/case-06.webp" alt="Перевозка цистерны Кирово-Чепецк — Первомайский" />
+          <div class="case-card__body"><h3>Резервуар / цистерна</h3><p class="case-card__route"><svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg> Кирово-Чепецк → Первомайский (Тула)</p><p class="muted">Доставлено в срок, груз без повреждений.</p></div>
+        </article>
+        <article class="case-card" data-type="equip">
+          <img loading="lazy" decoding="async" src="public/img/cases/case-09.webp" alt="Перевозка ёмкости СПБ — ЗБК, 22,3×4,3×4,3 м" />
+          <div class="case-card__body"><h3>Промёмкость</h3><p class="case-card__route"><svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg> Санкт-Петербург → ЗБК</p><p class="case-card__dims">22,3 × 4,3 × 4,3 м · 15 т</p></div>
+        </article>
+        <article class="case-card" data-type="tank">
+          <img loading="lazy" decoding="async" src="public/img/cases/case-01.webp" alt="Перевозка ёмкостей Астрахань — Пермь" />
+          <div class="case-card__body"><h3>Ёмкости большого диаметра</h3><p class="case-card__route"><svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg> Астрахань → Пермь</p><p class="muted">Сопровождение машинами прикрытия.</p></div>
+        </article>
+        <article class="case-card" data-type="spec">
+          <img loading="lazy" decoding="async" src="public/img/cases/case-08.webp" alt="Перевозка негабарита через тоннель СПБ — Мурманск" />
+          <div class="case-card__body"><h3>Негабаритный груз</h3><p class="case-card__route"><svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg> Санкт-Петербург → п. Молочное (Мурманск)</p><p class="muted">Маршрут с тоннелями, согласован заранее.</p></div>
+        </article>
+        <article class="case-card" data-type="tank">
+          <img loading="lazy" decoding="async" src="public/img/cases/case-10.webp" alt="Перевозка ёмкостей СПБ — Пермь" />
+          <div class="case-card__body"><h3>Резервуары</h3><p class="case-card__route"><svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg> Санкт-Петербург → Пермь</p><p class="muted">Доставлено день в день.</p></div>
+        </article>
+        <article class="case-card" data-type="equip">
+          <img loading="lazy" decoding="async" src="public/img/cases/case-11.webp" alt="Перевозка резервуара Чебаркуль — Манжерок" />
+          <div class="case-card__body"><h3>Резервуар</h3><p class="case-card__route"><svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg> Чебаркуль → Манжерок</p><p class="muted">Цена зафиксирована в договоре.</p></div>
+        </article>
+      </div>
+      <p class="cases__note muted center" data-reveal>Все кейсы — реальные перевозки. Добавляем новые по мере поступления фото и видео.</p>
+    </div>
+  </section>
+
+  <div class="zebra-divider" aria-hidden="true"></div>
+
+  <!-- ════════ ЭКРАН 12 — ГАРАНТИИ + ЮР. ПРОЗРАЧНОСТЬ ════════ -->
+  <section id="legal" class="section guarantees">
+    <div class="container">
+      <div class="section-head" data-reveal><h2 class="section-title">Гарантии и юридическая прозрачность</h2></div>
+      <div class="grid md:cols-2 lg:cols-4 guarantees__grid" data-reveal-stagger>
+        <div class="guarantee"><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><h3>Фиксированная цена в договоре</h3></div>
+        <div class="guarantee"><svg class="icon icon--accent" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg><h3>Оплата после доставки</h3></div>
+        <div class="guarantee"><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg><h3>Страхование до 200 млн ₽</h3></div>
+        <div class="guarantee"><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><h3>Компенсация при повреждении — по регламенту</h3></div>
+      </div>
+      <div class="legal-block card" data-reveal>
+        <p><strong>Общество с ограниченной ответственностью «Негабарит 12»</strong> · работа с НДС</p>
+        <p class="muted tabular">ИНН 1215207230 · КПП 121501001 · ОГРН 1161215050325</p>
+        <p class="muted">Юридический адрес: 424039, Респ. Марий Эл, г. Йошкар-Ола, ул. Дружбы, д. 100, оф. 213.</p>
+        <p class="muted">Генеральный директор Смирнов С. М. (действует на основании устава). <a href="public/docs/" class="link">Образец договора (PDF)</a> — добавим по получении.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 13 — FAQ ════════ -->
+  <section class="section faq">
+    <div class="container faq__container">
+      <div class="section-head" data-reveal><h2 class="section-title">Частые вопросы</h2></div>
+      <div class="faq__list" data-reveal>
+        <div class="faq__item"><button class="faq__q" aria-expanded="false">Почему цена не «от…», а фиксированная?<span class="faq__icon"></span></button><div class="faq__a"><p>Мы считаем полную стоимость заранее — с разрешениями, сопровождением и страховкой — и закрепляем её в договоре. В пути сумма не меняется: ни за топливо, ни за мосты, ни за посты ГИБДД.</p></div></div>
+        <div class="faq__item"><button class="faq__q" aria-expanded="false">Что будет, если у груза нет точных габаритов?<span class="faq__icon"></span></button><div class="faq__a"><p>Укажите примерные размеры в калькуляторе — мы уточним их при звонке и подберём подходящую платформу. Финальная цена фиксируется после уточнения.</p></div></div>
+        <div class="faq__item"><button class="faq__q" aria-expanded="false">Вы реально оформляете разрешение КТГ или едете «по-серому»?<span class="faq__icon"></span></button><div class="faq__a"><p>Оформляем официальное межрегиональное спецразрешение и согласовываем маршрут с уполномоченными органами. Это входит в стоимость. Груз едет легально.</p></div></div>
+        <div class="faq__item"><button class="faq__q" aria-expanded="false">Когда платить — до или после доставки?<span class="faq__icon"></span></button><div class="faq__a"><p>Оплата после доставки, перед выгрузкой. Предоплата вперёд не требуется.</p></div></div>
+        <div class="faq__item"><button class="faq__q" aria-expanded="false">Что если груз повредят — как получить компенсацию?<span class="faq__icon"></span></button><div class="faq__a"><p>Груз застрахован до 200 млн ₽, крепление по ГОСТу, перед выездом — фотоотчёт. При повреждении компенсация по чёткому регламенту, прописанному в договоре.</p></div></div>
+        <div class="faq__item"><button class="faq__q" aria-expanded="false">Сколько стоит и сколько занимает оформление разрешения?<span class="faq__icon"></span></button><div class="faq__a"><p>Межрегиональное разрешение по РФ — от 12 000 ₽, оформление за 7 дней. Берём процесс на себя.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 14 — ЛИД-МАГНИТ ════════ -->
+  <section class="section leadmagnet">
+    <div class="container leadmagnet__card" data-reveal>
+      <div class="leadmagnet__text">
+        <p class="eyebrow">Бесплатно</p>
+        <h2 class="section-title">Чек-лист: как перевезти негабарит и не получить штраф 400 000 ₽</h2>
+        <p class="lead">Скачайте PDF — что проверить до перевозки, какие разрешения нужны и где теряют деньги.</p>
+      </div>
+      <form class="jsform leadmagnet__form" data-event="lead_magnet" novalidate>
+        <input type="text" name="company_site" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <label class="field"><span class="field__label">Имя*</span><input name="name" autocomplete="name" required /><span class="field__error"></span></label>
+        <label class="field"><span class="field__label">Телефон / мессенджер*</span><input type="tel" name="phone" autocomplete="tel" required /><span class="field__error"></span></label>
+        <label class="field field--check"><input type="checkbox" name="consent" required /><span>Согласен с обработкой данных</span><span class="field__error"></span></label>
+        <button class="btn btn--primary btn--block" type="submit">Получить чек-лист</button>
+        <div class="thanks" data-thanks hidden><h3>Готово!</h3><p class="muted">Прислали чек-лист в мессенджер. Проверьте сообщения.</p></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 15 — ФИНАЛЬНЫЙ CTA + КОНТАКТЫ ════════ -->
+  <section id="contacts" class="section final">
+    <div class="container final__row">
+      <div class="final__text" data-reveal>
+        <h2 class="final__h2">Устали от цен «от…» и внезапных доплат в пути?</h2>
+        <p class="lead">Оставьте параметры груза — рассчитаем честную стоимость со страховкой и КТГ. Машина может выехать на погрузку оперативно после согласования.</p>
+        <ul class="final__contacts">
+          <li><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg><a href="tel:+78362495320">+7 (8362) 49-53-20</a></li>
+          <li><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M3 7h18v12H3zM3 7l9 6 9-6"/></svg><a href="mailto:info@negabarit12.com">info@negabarit12.com</a></li>
+          <li><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M12 22s8-4.5 8-11a8 8 0 1 0-16 0c0 6.5 8 11 8 11Z"/><circle cx="12" cy="11" r="2.5"/></svg> Йошкар-Ола, ул. Дружбы, 100</li>
+          <li><svg class="icon icon--accent" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg><a href="https://instagram.com/negabarit12" target="_blank" rel="noopener">@negabarit12</a></li>
+        </ul>
+      </div>
+      <form class="jsform final__form card" data-event="lead_final" novalidate>
+        <input type="text" name="company_site" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <h3>Зафиксировать стоимость в договоре</h3>
+        <label class="field"><span class="field__label">Имя*</span><input name="name" autocomplete="name" required /><span class="field__error"></span></label>
+        <label class="field"><span class="field__label">Телефон*</span><input type="tel" name="phone" autocomplete="tel" required /><span class="field__error"></span></label>
+        <fieldset class="field field--radio"><span class="field__label">Мессенджер</span><label class="radio"><input type="radio" name="messenger" value="whatsapp" checked /> WhatsApp</label><label class="radio"><input type="radio" name="messenger" value="telegram" /> Telegram</label></fieldset>
+        <label class="field"><span class="field__label">Комментарий</span><textarea name="comment" rows="2" placeholder="Что и куда везём"></textarea></label>
+        <label class="field field--check"><input type="checkbox" name="consent" required /><span>Согласен с <a href="#legal" data-scroll="#legal">политикой конфиденциальности</a></span><span class="field__error"></span></label>
+        <p class="form__error" role="alert" hidden></p>
+        <button class="btn btn--primary btn--block btn--lg" type="submit">Зафиксировать стоимость перевозки в договоре</button>
+        <div class="thanks" data-thanks hidden>
+          <svg class="icon icon--success" viewBox="0 0 24 24" width="40" height="40"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
+          <h3>Готово. Логист перезвонит в течение 15 минут.</h3>
+          <p class="muted">+7 (8362) 49-53-20 · info@negabarit12.com</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__row">
+    <span class="muted">© ООО «Негабарит 12», г. Йошкар-Ола · перевозка негабаритных грузов по РФ, СНГ, Китаю</span>
+    <a href="#hero" class="muted" data-scroll="#hero">Наверх ↑</a>
+  </div>
+</footer>
+
+<!-- ════════ ГЛОБАЛЬНЫЕ КОНВЕРСИОННЫЕ ЭЛЕМЕНТЫ ════════ -->
+
+<!-- Floating WhatsApp -->
+<a class="fab-wa" href="https://wa.me/78362495320" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.4 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.1-.7a10.8 10.8 0 0 1-4.3-3.8c-.3-.5-.9-1.5-.9-2.8s.7-2 .9-2.2a1 1 0 0 1 .7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.2.2-.3.3-.1.6.5.8 1 1.3 1.7 1.8.6.4 1 .5 1.3.6.2 0 .4 0 .5-.2l.6-.8c.2-.2.3-.2.6-.1l2 .9c.2.1.4.2.4.3.1.2.1.6 0 .9Z"/></svg>
+</a>
+
+<!-- Mobile sticky-бар -->
+<nav class="mobilebar" aria-label="Быстрые действия">
+  <a href="tel:+78362495320"><svg class="icon" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg><span>Позвонить</span></a>
+  <a href="https://wa.me/78362495320" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.2-5.6A8.4 8.4 0 1 1 21 11.5Z"/></svg><span>WhatsApp</span></a>
+  <button data-scroll="#quiz" class="mobilebar__cta"><svg class="icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h5"/></svg><span>Рассчитать</span></button>
+</nav>
+
+<!-- Модалка «Заказать звонок» -->
+<div class="modal" id="modal-callback" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Заказать звонок">
+  <div class="modal__box" data-form-host>
+    <button class="modal__close" data-modal-close aria-label="Закрыть">×</button>
+    <h3>Заказать звонок</h3>
+    <p class="muted">Перезвоним в течение 15 минут и ответим на вопросы по вашему грузу.</p>
+    <form class="jsform" data-event="lead_callback" novalidate>
+      <input type="text" name="company_site" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <label class="field"><span class="field__label">Имя*</span><input name="name" autocomplete="name" required /><span class="field__error"></span></label>
+      <label class="field"><span class="field__label">Телефон*</span><input type="tel" name="phone" autocomplete="tel" required /><span class="field__error"></span></label>
+      <label class="field field--check"><input type="checkbox" name="consent" required /><span>Согласен с обработкой данных</span><span class="field__error"></span></label>
+      <p class="form__error" role="alert" hidden></p>
+      <button class="btn btn--primary btn--block" type="submit">Жду звонка</button>
+    </form>
+    <div class="thanks" data-thanks hidden><h3>Готово!</h3><p class="muted">Логист перезвонит в течение 15 минут.</p></div>
+  </div>
+</div>
+
+<!-- Cookie-баннер -->
+<div class="cookie" id="cookie">
+  <span class="muted">Сайт использует cookie и метрику для улучшения работы. Продолжая, вы соглашаетесь с <a href="#legal" data-scroll="#legal" class="link">политикой</a>.</span>
+  <button class="btn btn--ghost" onclick="this.closest('#cookie').remove()">Понятно</button>
+</div>
+
+<!-- Скрипты: GSAP + ScrollTrigger + Lenis (CDN), затем наш модуль -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
