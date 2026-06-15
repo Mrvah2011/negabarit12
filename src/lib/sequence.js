@@ -16,7 +16,7 @@
    статичный постер <img> и те же тексты. pin не вешаем.
    ============================================================================ */
 
-import { isMobile, prefersReducedMotion, saveData } from './smoothScroll.js';
+import { prefersReducedMotion, saveData } from './smoothScroll.js';
 
 export class HeroSequence {
   /**
@@ -43,9 +43,11 @@ export class HeroSequence {
     this.dpr = Math.min(window.devicePixelRatio || 1, 1.5); // на ретине чётче, но не выше 1.5× — вдвое легче заливка
   }
 
-  /** Решение: грузить секвенцию или отдать статичный постер. */
+  /** Решение: грузить секвенцию или отдать статичный постер.
+   *  Mobile теперь тоже скрабит, но на ОБЛЕГЧЁННОМ наборе (см. конфиг в main.js):
+   *  меньше кадров + вертикальный кроп. Отключаем только при reduced-motion/save-data. */
   shouldRunSequence() {
-    return !isMobile() && !prefersReducedMotion && !saveData;
+    return !prefersReducedMotion && !saveData;
   }
 
   frameSrc(i) {

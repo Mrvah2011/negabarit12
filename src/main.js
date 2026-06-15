@@ -17,12 +17,11 @@ if (new URLSearchParams(location.search).has('debug')) window.__DEBUG_ANALYTICS_
 
 // --- Конфиг hero-секвенции. СВОПАБЕЛЬНО: чтобы наложить другой клип —
 //     перегенерировать кадры в эту папку и поменять count. Разметку не трогать.
-const HERO_SEQ = {
-  path: 'assets/sequence/hero/hero_',
-  count: 150,
-  pad: 4,
-  ext: '.webp',
-};
+//     Desktop — горизонтальный набор (150 кадров). Mobile — облегчённый
+//     вертикальный (60 кадров, ~0.9 МБ): эффект есть, слабый телефон тянет.
+const HERO_SEQ_DESKTOP = { path: 'assets/sequence/hero/hero_',   count: 150, pad: 4, ext: '.webp' };
+const HERO_SEQ_MOBILE  = { path: 'assets/sequence/hero-m/hero_', count: 60,  pad: 4, ext: '.webp' };
+const HERO_SEQ = isMobile() ? HERO_SEQ_MOBILE : HERO_SEQ_DESKTOP;
 
 function registerGsap() {
   if (window.gsap && window.ScrollTrigger) {
