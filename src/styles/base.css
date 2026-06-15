@@ -6,8 +6,20 @@
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+html { -webkit-text-size-adjust: 100%; }
+
+/* --- Обязательный CSS Lenis ---
+   БЕЗ него нативный scroll-behavior дерётся с инерцией Lenis → скролл «залипает»,
+   медленно реагирует на колесо. Класс .lenis-smooth Lenis вешает на <html> сам. */
+html.lenis, html.lenis body { height: auto; }
+/* ВАЖНО: эта версия Lenis вешает класс `lenis` (без `lenis-smooth`),
+   поэтому гасим нативный smooth именно по `.lenis` — иначе он дерётся с инерцией. */
+html.lenis { scroll-behavior: auto !important; }
+.lenis [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis iframe { pointer-events: none; }
+/* Плавный якорный скролл только когда Lenis выключен (reduced-motion) */
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: smooth; } }
 
 body {
   font-family: var(--font-body);

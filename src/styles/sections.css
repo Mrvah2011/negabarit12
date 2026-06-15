@@ -26,7 +26,7 @@
 .header.is-visible { transform: none; opacity: 1; pointer-events: auto; }
 .header__row { display: flex; align-items: center; justify-content: space-between; height: var(--header-h); }
 .header__logo { display: inline-flex; align-items: center; gap: var(--space-2); font-family: var(--font-head); font-weight: 800; letter-spacing: -.01em; }
-.header__logo img { width: 36px; height: 36px; }
+.header__logo img { height: 36px; width: auto; } /* эмблема ~квадрат, без искажения */
 .header__actions { display: flex; align-items: center; gap: var(--space-4); }
 .header__phone { font-family: var(--font-head); font-weight: 700; white-space: nowrap; }
 .header__cta { min-height: 44px; padding-inline: var(--space-4); }
