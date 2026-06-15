@@ -21,7 +21,9 @@ export function initSmoothScroll() {
 
   // eslint-disable-next-line no-undef
   lenis = new Lenis({
-    duration: 1.1,
+    // lerp вместо duration — колесо ощущается отзывчивее (меньше «ваты»), без залипания
+    lerp: 0.12,
+    wheelMultiplier: 1.1,
     smoothWheel: true,
     // тач оставляем нативным: на мобильном инерционный скролл системы лучше и не лагает
     smoothTouch: false,

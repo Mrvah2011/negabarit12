@@ -62,9 +62,9 @@ async function initHero() {
       scrollTrigger: {
         trigger: section,
         start: 'top top',
-        end: '+=150%',          // длина pinned-зоны hero (~150vh)
+        end: '+=100%',          // длина pinned-зоны hero (~1 экран — не «застреваем»)
         pin: sticky,
-        scrub: 0.6,             // мягкое сглаживание скраба — premium-ощущение
+        scrub: 0.4,             // отзывчивее, меньше залипания при быстром скролле
         onUpdate: (self) => seq.renderAtProgress(self.progress),
       },
     })

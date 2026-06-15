@@ -34,11 +34,13 @@ export class HeroSequence {
   constructor(cfg) {
     this.cfg = cfg;
     this.canvas = cfg.canvas;
-    this.ctx = this.canvas.getContext('2d', { alpha: false });
+    // alpha:true — при очистке canvas (resize/первый кадр) сквозь него виден постер,
+    // а не чёрная заливка. Убирает «чёрный экран» при скролле.
+    this.ctx = this.canvas.getContext('2d', { alpha: true });
     this.frames = [];        // HTMLImageElement[]
     this.loaded = 0;
     this.current = -1;
-    this.dpr = Math.min(window.devicePixelRatio || 1, 2); // на ретине рисуем чётче, но не выше 2× (перф)
+    this.dpr = Math.min(window.devicePixelRatio || 1, 1.5); // на ретине чётче, но не выше 1.5× — вдвое легче заливка
   }
 
   /** Решение: грузить секвенцию или отдать статичный постер. */
