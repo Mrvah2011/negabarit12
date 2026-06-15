@@ -20,7 +20,7 @@ src/
     ui.js              — header/модалки/FAQ/фильтр кейсов
     analytics.js       — dataLayer / Метрика
   styles/{tokens,base,sections}.css
-public/
+assets/
   sequence/hero/       — 150 кадров WebP видеоскролла
   img/ video/ logo/ docs/
 ```
@@ -33,7 +33,7 @@ python -m http.server 5501
 ```
 
 ## Hero-видеоскролл (свопабельно)
-Кадры в `public/sequence/hero/hero_0001..0150.webp`. Чтобы поменять клип — перегенерировать кадры в ту же папку и обновить `count` в `HERO_SEQ` (`src/main.js`). На mobile/reduced-motion/save-data секвенция не грузится → постер.
+Кадры в `assets/sequence/hero/hero_0001..0150.webp`. Чтобы поменять клип — перегенерировать кадры в ту же папку и обновить `count` в `HERO_SEQ` (`src/main.js`). На mobile/reduced-motion/save-data секвенция не грузится → постер.
 
 ## Перед боевым запуском (TODO)
 - `FORM_ENDPOINT` в `src/lib/forms.js` — точка приёма заявок (email/Telegram/CRM).

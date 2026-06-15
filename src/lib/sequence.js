@@ -23,7 +23,7 @@ export class HeroSequence {
    * @param {Object} cfg
    * @param {HTMLCanvasElement} cfg.canvas
    * @param {HTMLElement} cfg.section   — секция-триггер для pin
-   * @param {string} cfg.path           — паттерн пути, напр. 'public/sequence/hero/hero_'
+   * @param {string} cfg.path           — паттерн пути, напр. 'assets/sequence/hero/hero_'
    * @param {number} cfg.count          — число кадров
    * @param {number} cfg.pad            — нулей в номере (hero_0001 → 4)
    * @param {string} cfg.ext            — расширение, напр. '.webp'

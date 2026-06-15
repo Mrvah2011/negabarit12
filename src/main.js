@@ -18,7 +18,7 @@ if (new URLSearchParams(location.search).has('debug')) window.__DEBUG_ANALYTICS_
 // --- Конфиг hero-секвенции. СВОПАБЕЛЬНО: чтобы наложить другой клип —
 //     перегенерировать кадры в эту папку и поменять count. Разметку не трогать.
 const HERO_SEQ = {
-  path: 'public/sequence/hero/hero_',
+  path: 'assets/sequence/hero/hero_',
   count: 150,
   pad: 4,
   ext: '.webp',
