@@ -163,31 +163,36 @@
 @media (min-width: 768px) { .autopark__item { flex-basis: 42%; } }
 @media (min-width: 1100px) { .autopark__item { flex-basis: 30%; } }
 
-/* ─── ЭТАПЫ (pinned scrollytelling) ─────────────────────────────────────── */
-.process { background: var(--bg-2); border-block: 1px solid var(--line); padding: 0; }
-.process__pin { min-height: 100svh; display: flex; align-items: center; padding-block: var(--section-pad); }
+/* ─── ЭТАПЫ (sticky scrollytelling — БЕЗ GSAP-pin) ───────────────────────────
+   Раньше был GSAP pin: на десктопе pin-spacer считался криво, секция налезала на
+   «Автопарк» и блокировала его скролл. Теперь правая колонка липнет нативным
+   position:sticky, активный шаг переключает IntersectionObserver. Без overlay-багов. */
+.process { background: var(--bg-2); border-block: 1px solid var(--line); padding-block: var(--section-pad); }
 .process__inner { display: grid; gap: var(--space-7); width: 100%; }
-.process__left { display: grid; gap: var(--space-5); align-content: center; }
+.process__left { display: grid; gap: var(--space-5); }
 .process__steps { display: grid; gap: var(--space-4); }
 .process__step { display: grid; grid-template-columns: auto 1fr; gap: var(--space-4); align-items: start; padding: var(--space-3) 0; border-top: 1px solid var(--line-soft); }
 .process__n { font-family: var(--font-head); font-weight: 800; color: var(--ink-dim); font-size: 1.1rem; }
 .process__step h3 { font-size: 1.1rem; }
 .process__right { display: none; }
 @media (min-width: 900px) {
-  .process__inner { grid-template-columns: 1fr 1fr; align-items: center; }
-  .process__right { display: block; position: relative; }
-  /* desktop: затемняем неактивные шаги, активный — ярко */
-  .process__step { opacity: .4; transition: opacity var(--dur); }
+  .process__inner { grid-template-columns: 1fr 1fr; align-items: start; gap: var(--space-8); }
+  .process__steps { gap: clamp(28px, 7vh, 72px); } /* шаги разнесены — артефакт держится дольше на шаг */
+  /* правая колонка липнет, пока листаешь шаги слева */
+  .process__right { display: block; position: sticky; top: calc(var(--header-h) + 28px); align-self: start; height: min(70vh, 580px); }
+  .process__step { opacity: .45; transition: opacity var(--dur); }
   .process__step.is-active { opacity: 1; }
   .process__step.is-active .process__n { color: var(--action); }
+  /* артефакты крест-накрест: активный — поверх */
   .process__art { position: absolute; inset: 0; opacity: 0; transition: opacity var(--dur-slow) var(--ease-out); }
-  .process__art.is-active { opacity: 1; position: relative; }
-  .process__art:not(.is-active) { pointer-events: none; }
+  .process__art.is-active { opacity: 1; }
+  .process__art img { height: 100%; width: 100%; object-fit: cover; aspect-ratio: auto; }
+  .process__art .artefact__placeholder { height: 100%; aspect-ratio: auto; }
   .process__dots { position: absolute; right: -28px; top: 50%; transform: translateY(-50%); display: grid; gap: 10px; }
   .process__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
   .process__dot.is-active { background: var(--action); }
 }
-/* mobile: pin отключён (JS), артефакты скрыты — чистый вертикальный список шагов */
+/* mobile: артефакты скрыты — чистый вертикальный список шагов */
 @media (max-width: 899px) { .process__dots { display: none; } }
 
 /* ─── СОХРАННОСТЬ (видео) ───────────────────────────────────────────────── */

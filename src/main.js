@@ -4,7 +4,7 @@
    Порядок важен: smooth-scroll и ScrollTrigger — до любых pin/scrub.
    ============================================================================ */
 
-import { initSmoothScroll, isMobile, prefersReducedMotion, saveData } from './lib/smoothScroll.js';
+import { initSmoothScroll, isMobile, prefersReducedMotion, saveData, getLenis } from './lib/smoothScroll.js';
 import { HeroSequence } from './lib/sequence.js';
 import { initReveals, initCounters, initParallax } from './lib/reveal.js';
 import { initForms } from './lib/forms.js';
@@ -72,39 +72,51 @@ async function initHero() {
   }
 }
 
-/* --- ЭТАПЫ РАБОТЫ: pinned scrollytelling (Экран 7) ---
-   Desktop: секция пинится, шаги сменяются по прогрессу, артефакт справа.
-   Mobile: деградация в обычный вертикальный список карточек (reveal). */
+/* --- ЭТАПЫ РАБОТЫ: sticky scrollytelling (Экран 7) ---
+   Desktop: правая колонка липнет (CSS position:sticky), активный шаг определяет
+   IntersectionObserver — тот, что пересёк центр экрана. БЕЗ GSAP-pin (он давал
+   overlay-баг с «Автопарком»). Mobile: обычный вертикальный список (CSS). */
 function initProcess() {
   const section = document.getElementById('process');
-  if (!section || !window.ScrollTrigger) return;
-  if (isMobile() || prefersReducedMotion) return; // мобильная деградация — список (CSS)
+  if (!section) return;
+  if (isMobile() || prefersReducedMotion) return; // mobile/reduced — простой список
 
   const stepsEls = [...section.querySelectorAll('.process__step')];
   const artefacts = [...section.querySelectorAll('.process__art')];
   const indicators = [...section.querySelectorAll('.process__dot')];
-  const n = stepsEls.length;
-  if (!n) return;
+  if (!stepsEls.length) return;
 
+  let activeIdx = -1;
   const setActive = (i) => {
+    if (i === activeIdx) return;          // не дёргаем DOM, если шаг не сменился
+    activeIdx = i;
     stepsEls.forEach((s, idx) => s.classList.toggle('is-active', idx === i));
     artefacts.forEach((a, idx) => a.classList.toggle('is-active', idx === i));
     indicators.forEach((d, idx) => d.classList.toggle('is-active', idx === i));
   };
+
+  // активный = шаг, чей центр ближе всего к центру вьюпорта. Считаем на каждый скролл —
+  // всегда ровно один активный, без «дыр» между шагами.
+  const pick = () => {
+    const mid = window.innerHeight / 2;
+    let best = 0, bestDist = Infinity;
+    stepsEls.forEach((s, i) => {
+      const r = s.getBoundingClientRect();
+      const d = Math.abs(r.top + r.height / 2 - mid);
+      if (d < bestDist) { bestDist = d; best = i; }
+    });
+    setActive(best);
+  };
   setActive(0);
 
-  // eslint-disable-next-line no-undef
-  ScrollTrigger.create({
-    trigger: section,
-    start: 'top top',
-    end: `+=${n * 100}%`,        // по экрану на шаг
-    pin: section.querySelector('.process__pin'),
-    scrub: true,
-    onUpdate: (self) => {
-      const i = Math.min(n - 1, Math.floor(self.progress * n));
-      setActive(i);
-    },
-  });
+  // rAF-троттл: getBoundingClientRect×7 не на каждое событие скролла, а раз в кадр
+  let ticking = false;
+  const onScroll = () => { if (ticking) return; ticking = true; requestAnimationFrame(() => { pick(); ticking = false; }); };
+  window.addEventListener('scroll', onScroll, { passive: true });   // Lenis двигает реальный scrollTop → событие летит
+  const lenis = getLenis();
+  if (lenis) lenis.on('scroll', onScroll);                          // + плавный скролл Lenis
+  window.addEventListener('resize', onScroll, { passive: true });
+  pick();
 }
 
 /* --- Bootstrap --- */
@@ -119,10 +131,10 @@ function boot() {
   initReveals();
   initCounters();
   initLazyVideos();
+  initProcess();       // сам отсеивает mobile/reduced; sticky — не требует ScrollTrigger
 
   if (!isMobile() && !prefersReducedMotion && !saveData) {
     initParallax();
-    initProcess();
   }
 
   // пересчёт триггеров после полной загрузки ассетов (шрифты/картинки меняют высоты)
