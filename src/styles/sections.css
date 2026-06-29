@@ -274,16 +274,43 @@
 .footer { padding: var(--space-6) 0; border-top: 1px solid var(--line); }
 .footer__row { display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: space-between; align-items: center; font-size: var(--fs-sm); }
 
-/* ─── FLOATING WA ───────────────────────────────────────────────────────── */
-.fab-wa {
+/* ─── FLOATING TELEGRAM ─────────────────────────────────────────────────── */
+.fab-tg {
   position: fixed; z-index: var(--z-float); right: var(--gutter);
   bottom: calc(var(--gutter) + env(safe-area-inset-bottom));
   width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center;
-  background: var(--success); color: #fff; box-shadow: var(--shadow-lg);
+  background: #229ED9; color: #fff; box-shadow: var(--shadow-lg);   /* фирменный синий Telegram */
   transition: transform var(--dur);
 }
-.fab-wa:hover { transform: scale(1.06); }
-@media (max-width: 768px) { .fab-wa { bottom: calc(var(--mobilebar-h) + 12px + env(safe-area-inset-bottom)); } }
+.fab-tg:hover { transform: scale(1.06); }
+@media (max-width: 768px) { .fab-tg { bottom: calc(var(--mobilebar-h) + 12px + env(safe-area-inset-bottom)); } }
+
+/* ─── СТРАНИЦА «НАША КОМАНДА» ────────────────────────────────────────────── */
+.header--static { position: static; transform: none; opacity: 1; pointer-events: auto; }
+.team-page { padding-top: var(--space-7); }
+.team-hero__h1 { font-size: var(--fs-h1); text-transform: uppercase; max-width: 18ch; margin-bottom: var(--space-4); }
+.team-member { margin: 0; display: grid; gap: var(--space-3); }
+.team-member__photo { aspect-ratio: 1 / 1; }
+.team-member figcaption { display: grid; gap: 2px; }
+.team-gallery__item { aspect-ratio: 4 / 3; }
+.vacancy { display: grid; gap: var(--space-2); align-content: start; }
+.vacancies__cta { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; justify-content: space-between; margin-top: var(--gutter); }
+
+/* ─── ССЫЛКА В ШАПКЕ (Наша команда) ─────────────────────────────────────── */
+.header__nav-link { font-weight: 600; color: var(--ink-muted); white-space: nowrap; transition: color var(--dur); }
+.header__nav-link:hover { color: var(--action-hi); }
+@media (max-width: 600px) { .header__nav-link { display: none; } }
+
+/* ─── ЛЕНТА ВИДЕО ПЕРЕВОЗОК (свайп) ─────────────────────────────────────── */
+.video-strip {
+  display: flex; gap: var(--space-4); overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: var(--space-5) 0 var(--space-3); margin-top: var(--space-6);
+  -webkit-overflow-scrolling: touch; scrollbar-width: thin;
+}
+.video-strip__item { flex: 0 0 86%; max-width: 560px; scroll-snap-align: center; margin: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); }
+.video-strip__item video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--bg-2); display: block; }
+@media (min-width: 768px)  { .video-strip__item { flex-basis: 48%; } }
+@media (min-width: 1100px) { .video-strip__item { flex-basis: 32%; } }
 
 /* ─── MOBILE STICKY-БАР ─────────────────────────────────────────────────── */
 .mobilebar {
