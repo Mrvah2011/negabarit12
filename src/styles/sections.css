@@ -31,6 +31,12 @@
 .header__phone { font-family: var(--font-head); font-weight: 700; white-space: nowrap; }
 .header__cta { min-height: 44px; padding-inline: var(--space-4); }
 @media (max-width: 600px) { .header__phone, .header__logo span { display: none; } }
+/* MOBILE: верхняя шапка и плавающая Telegram-кнопка не нужны — снизу есть sticky-бар
+   (Позвонить · Telegram · Рассчитать). Убираем дублирование. */
+@media (max-width: 768px) {
+  .header:not(.header--static) { display: none !important; } /* sticky-шапку index прячем; team (static) оставляем — там нет нижнего бара */
+  .fab-tg { display: none !important; }
+}
 
 /* ─── HERO ──────────────────────────────────────────────────────────────── */
 .hero { position: relative; }
