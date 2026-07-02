@@ -50,7 +50,8 @@
 }
 /* надзаголовок в hero — поверх фото делаем светлым (muted-серый тонет на светлом небе) */
 .hero .eyebrow { color: rgba(255,255,255,.9); }
-.hero__content { position: absolute; z-index: 3; left: 0; right: 0; bottom: clamp(72px, 9vh, 110px); }
+/* контент центрируем по вертикали (не прибиваем к низу — иначе CTA уезжают под cookie) */
+.hero__content { position: absolute; z-index: 3; inset: 0; display: flex; flex-direction: column; justify-content: center; padding-block: clamp(72px, 10vh, 130px); }
 .hero__h1 { max-width: 20ch; margin-top: var(--space-3); text-shadow: 0 2px 20px rgba(0,0,0,.5); }
 .hero__sub { max-width: 50ch; margin-top: var(--space-3); color: #D7DBE2; }
 .hero__bullets { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); margin-top: var(--space-4); }
