@@ -300,6 +300,7 @@
         <p class="eyebrow">Техника своя</p>
         <h2 class="section-title">Собственный автопарк</h2>
         <p class="lead section-intro">Тягачи DAF, Volvo, Renault и тралы под разный вес и габариты. Подберём платформу под вашу задачу, а не «что нашлось на бирже».</p>
+        <span class="badge badge--success autopark__count"><svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M3 17h13v-5l-3-4H3zM16 17h5v-3l-2-2h-3"/><circle cx="6.5" cy="18.5" r="2"/><circle cx="18" cy="18.5" r="2"/></svg> 50+ автомобилей в собственном автопарке</span>
       </div>
     </div>
     <!-- горизонтальная свайп-лента с явными индикаторами (без скрытого drag-only) -->
@@ -360,13 +361,17 @@
         <h2 class="section-title center" style="margin-inline:auto">Груз приедет без царапин</h2>
         <p class="lead section-intro" style="margin-inline:auto">Крепление по ГОСТу, фотоотчёт перед выездом, страхование ответственности до 200 млн ₽ и чёткая политика компенсаций. Видите перемещение через GPS в реальном времени.</p>
       </div>
-      <!-- лента реальных видео перевозок: muted/loop/playsinline, lazy (data-src) -->
-      <div class="video-strip" data-reveal role="list" aria-label="Видео реальных перевозок">
-        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/case1.mp4" poster="assets/video/case1-poster.webp" muted loop playsinline preload="none" aria-label="Видео перевозки негабарита"></video></figure>
-        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/case2.mp4" poster="assets/video/case2-poster.webp" muted loop playsinline preload="none" aria-label="Видео перевозки негабарита"></video></figure>
-        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/case3.mp4" poster="assets/video/case3-poster.webp" muted loop playsinline preload="none" aria-label="Видео перевозки негабарита"></video></figure>
-        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/case4.mp4" poster="assets/video/case4-poster.webp" muted loop playsinline preload="none" aria-label="Видео перевозки негабарита"></video></figure>
-        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/case5.mp4" poster="assets/video/case5-poster.webp" muted loop playsinline preload="none" aria-label="Видео перевозки негабарита"></video></figure>
+      <p class="video-strip__cap muted center" data-reveal>Видео наших негабаритных перевозок · нажмите, чтобы открыть на весь экран</p>
+      <!-- лента реальных видео перевозок: muted/loop/playsinline, lazy (data-src). Клик → лайтбокс. -->
+      <div class="video-strip" data-reveal role="list" aria-label="Видео наших негабаритных перевозок">
+        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/care1.mp4" poster="assets/video/care1-poster.webp" muted loop playsinline preload="none" aria-label="Видео нашей негабаритной перевозки"></video></figure>
+        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/care2.mp4" poster="assets/video/care2-poster.webp" muted loop playsinline preload="none" aria-label="Видео нашей негабаритной перевозки"></video></figure>
+        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/care3.mp4" poster="assets/video/care3-poster.webp" muted loop playsinline preload="none" aria-label="Видео нашей негабаритной перевозки"></video></figure>
+        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/care4.mp4" poster="assets/video/care4-poster.webp" muted loop playsinline preload="none" aria-label="Видео нашей негабаритной перевозки"></video></figure>
+        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/care5.mp4" poster="assets/video/care5-poster.webp" muted loop playsinline preload="none" aria-label="Видео нашей негабаритной перевозки"></video></figure>
+        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/care6.mp4" poster="assets/video/care6-poster.webp" muted loop playsinline preload="none" aria-label="Видео нашей негабаритной перевозки"></video></figure>
+        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/care7.mp4" poster="assets/video/care7-poster.webp" muted loop playsinline preload="none" aria-label="Видео нашей негабаритной перевозки"></video></figure>
+        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/care8.mp4" poster="assets/video/care8-poster.webp" muted loop playsinline preload="none" aria-label="Видео нашей негабаритной перевозки"></video></figure>
       </div>
     </div>
   </section>
@@ -485,6 +490,104 @@
   </section>
 
   <div class="zebra-divider" aria-hidden="true"></div>
+
+  <!-- ════════ ГАЛЕРЕЯ — БОЛЬШЕ ФОТО С ПЕРЕВОЗОК ════════ -->
+  <section class="section gallery-section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Ещё с рейсов</p>
+        <h2 class="section-title">Больше фото с перевозок</h2>
+        <p class="lead section-intro">Реальные кадры с наших маршрутов. Нажмите на фото — откроется на весь экран, листайте стрелками.</p>
+      </div>
+      <div class="gallery" data-reveal role="list" aria-label="Фотогалерея перевозок">
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-001.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-002.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-003.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-004.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-005.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-006.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-007.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-008.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-009.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-010.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-011.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-012.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-013.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-014.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-015.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-016.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-017.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-018.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-019.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-020.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-021.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-022.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-023.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-024.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-025.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-026.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-027.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-028.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-029.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-030.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-031.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-032.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-033.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-034.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-035.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-036.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-037.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-038.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-039.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-040.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-041.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-042.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-043.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-044.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-045.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-046.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-047.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-048.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-049.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-050.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-051.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-052.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-053.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-054.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-055.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-056.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-057.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-058.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-059.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-060.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-061.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-062.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-063.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-064.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-065.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-066.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-067.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-068.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-069.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-070.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-071.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-072.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-073.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-074.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-075.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-076.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-077.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-078.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-079.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-080.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-081.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-082.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-083.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-084.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-085.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+      </div>
+    </div>
+  </section>
 
   <!-- ════════ ЭКРАН 12 — ГАРАНТИИ + ЮР. ПРОЗРАЧНОСТЬ ════════ -->
   <section id="legal" class="section guarantees">

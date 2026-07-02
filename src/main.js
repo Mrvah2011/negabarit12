@@ -11,6 +11,8 @@ import { initForms } from './lib/forms.js';
 import { initQuiz } from './lib/quiz.js';
 import { initLazyVideos } from './lib/video.js';
 import { initUI } from './lib/ui.js';
+import { initCarousels } from './lib/carousel.js';
+import { initLightbox } from './lib/lightbox.js';
 
 // debug-флаг для аналитики в консоли (?debug в URL)
 if (new URLSearchParams(location.search).has('debug')) window.__DEBUG_ANALYTICS__ = true;
@@ -131,6 +133,8 @@ function boot() {
   initReveals();
   initCounters();
   initLazyVideos();
+  initCarousels();     // стрелки листания лент
+  initLightbox();      // полноэкранный просмотр фото/видео
   initProcess();       // сам отсеивает mobile/reduced; sticky — не требует ScrollTrigger
 
   if (!isMobile() && !prefersReducedMotion && !saveData) {

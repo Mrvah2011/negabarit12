@@ -291,6 +291,77 @@
 .vacancy { display: grid; gap: var(--space-2); align-content: start; }
 .vacancies__cta { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; justify-content: space-between; margin-top: var(--gutter); }
 
+/* ─── БЕЙДЖ «50+ автомобилей» / подпись видео / контакты вакансий ────────── */
+.autopark__count { margin-top: var(--space-4); }
+.video-strip__cap { margin-top: var(--space-5); font-size: var(--fs-sm); }
+.vacancies__contacts { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+/* ─── СТРЕЛКИ КАРУСЕЛЕЙ (◀ ▶) ────────────────────────────────────────────── */
+.carousel { position: relative; }
+.carousel__arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
+  width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(14,17,22,.72); color: var(--ink); border: 1px solid var(--line);
+  backdrop-filter: blur(6px); font-size: 26px; line-height: 1; font-family: var(--font-head);
+  box-shadow: var(--shadow); transition: background var(--dur), opacity var(--dur), transform var(--dur-fast);
+}
+.carousel__arrow:hover { background: var(--action); color: var(--cta-ink); border-color: var(--action); }
+.carousel__arrow:active { transform: translateY(-50%) scale(.94); }
+.carousel__arrow--prev { left: 10px; }
+.carousel__arrow--next { right: 10px; }
+.carousel__arrow.is-hidden { opacity: 0; pointer-events: none; }   /* у края ленты */
+.carousel__arrow.is-off { display: none; }                         /* всё влезло — стрелки не нужны */
+@media (min-width: 1024px) { .carousel__arrow--prev { left: 18px; } .carousel__arrow--next { right: 18px; } }
+
+/* ─── ГАЛЕРЕЯ «Больше фото» ──────────────────────────────────────────────── */
+.gallery { display: grid; gap: var(--space-3); grid-template-columns: repeat(2, 1fr); margin-top: var(--space-6); }
+.gallery__item { margin: 0; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--line); }
+.gallery__item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform var(--dur) var(--ease-out); }
+.gallery__item:hover img { transform: scale(1.04); }
+@media (min-width: 640px)  { .gallery { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1024px) { .gallery { grid-template-columns: repeat(4, 1fr); gap: var(--space-4); } }
+
+/* кликабельное медиа (лайтбокс) */
+.lb-clickable { cursor: pointer; }
+
+/* ─── ЛАЙТБОКС (полноэкранный просмотр) ──────────────────────────────────── */
+.lightbox {
+  position: fixed; inset: 0; z-index: 1100; display: none;
+  background: rgba(6,8,12,.94); place-items: center;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+}
+.lightbox.is-open { display: grid; animation: fadeIn var(--dur) var(--ease-out); }
+.lightbox__stage { max-width: 92vw; max-height: 86vh; display: grid; place-items: center; }
+.lightbox__stage img, .lightbox__stage video {
+  max-width: 92vw; max-height: 86vh; width: auto; height: auto;
+  border-radius: var(--radius); box-shadow: var(--shadow-lg); background: #000;
+}
+/* КРЕСТИК — фикс сверху-справа, крупный, всегда виден (в т.ч. на мобильном с safe-area) */
+.lightbox__close {
+  position: fixed; z-index: 1102;
+  top: calc(env(safe-area-inset-top) + 10px); right: calc(env(safe-area-inset-right) + 12px);
+  width: 52px; height: 52px; border-radius: 50%; font-size: 34px; line-height: 1; color: #fff;
+  background: rgba(0,0,0,.55); border: 1px solid rgba(255,255,255,.25); backdrop-filter: blur(6px);
+  display: grid; place-items: center;
+}
+.lightbox__close:hover { background: var(--brand-red); border-color: var(--brand-red); }
+/* стрелки листания */
+.lightbox__nav {
+  position: fixed; top: 50%; transform: translateY(-50%); z-index: 1101;
+  width: 54px; height: 54px; border-radius: 50%; font-size: 34px; line-height: 1; color: #fff;
+  background: rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.2); display: grid; place-items: center;
+  backdrop-filter: blur(6px); transition: background var(--dur);
+}
+.lightbox__nav:hover { background: var(--action); color: var(--cta-ink); }
+.lightbox__prev { left: calc(env(safe-area-inset-left) + 10px); }
+.lightbox__next { right: calc(env(safe-area-inset-right) + 10px); }
+.lightbox__counter { position: fixed; bottom: calc(env(safe-area-inset-bottom) + 12px); left: 50%; transform: translateX(-50%); z-index: 1101; color: rgba(255,255,255,.8); font-size: var(--fs-sm); font-variant-numeric: tabular-nums; }
+@media (max-width: 600px) {
+  .lightbox__nav { width: 46px; height: 46px; font-size: 28px; bottom: calc(env(safe-area-inset-bottom) + 64px); top: auto; transform: none; }
+  .lightbox__prev { left: 16px; } .lightbox__next { right: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .lightbox.is-open { animation: none; } }
+
 /* ─── ССЫЛКА В ШАПКЕ (Наша команда) ─────────────────────────────────────── */
 .header__nav-link { font-weight: 600; color: var(--ink-muted); white-space: nowrap; transition: color var(--dur); }
 .header__nav-link:hover { color: var(--action-hi); }

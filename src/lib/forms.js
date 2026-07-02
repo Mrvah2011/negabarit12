@@ -10,7 +10,10 @@
 
 import { track, getUTM } from './analytics.js';
 
-const FORM_ENDPOINT = ''; // TODO: webhook заказчика (email-relay / Telegram-бот / amoCRM)
+// Web3Forms — заявки уходят на info@negabarit12.com. Ключ привязан к этой почте.
+// Получить: web3forms.com → ввести info@negabarit12.com → вставить access-key сюда.
+const WEB3FORMS_KEY = ''; // TODO: вставить access-key Web3Forms
+const WEB3FORMS_URL = 'https://api.web3forms.com/submit';
 
 /* --- Маска телефона РФ: +7 (XXX) XXX-XX-XX --- */
 export function maskPhone(input) {
@@ -63,14 +66,29 @@ async function submitForm(form) {
   data.page = location.pathname;
   const eventName = form.dataset.event || 'lead_final';
 
-  if (FORM_ENDPOINT) {
-    const res = await fetch(FORM_ENDPOINT, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data),
+  if (WEB3FORMS_KEY) {
+    // тема письма по типу формы — чтобы в почте было видно источник заявки
+    const subjects = {
+      lead_calc: 'Заявка с калькулятора — Негабарит 12',
+      lead_callback: 'Заказ звонка — Негабарит 12',
+      lead_magnet: 'Запрос чек-листа — Негабарит 12',
+      lead_final: 'Заявка с сайта — Негабарит 12',
+    };
+    const res = await fetch(WEB3FORMS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_KEY,
+        subject: subjects[eventName] || 'Заявка с сайта — Негабарит 12',
+        from_name: 'Сайт Негабарит 12',
+        ...data,
+      }),
     });
-    if (!res.ok) throw new Error('Network ' + res.status);
+    const json = await res.json().catch(() => ({}));
+    if (!res.ok || json.success === false) throw new Error('Web3Forms ' + res.status);
   } else {
-    // нет бэкенда — не блокируем демонстрацию UX
-    console.info('[lead] (endpoint не задан) ', eventName, data);
+    // ключ ещё не задан — не блокируем демонстрацию UX
+    console.info('[lead] (Web3Forms key не задан) ', eventName, data);
     await new Promise((r) => setTimeout(r, 500));
   }
   track(eventName, { cargo: data.cargo_type, route: data.route_from });
