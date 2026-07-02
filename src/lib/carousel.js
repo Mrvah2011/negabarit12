@@ -45,5 +45,5 @@ function initTrack(track) {
 }
 
 export function initCarousels() {
-  document.querySelectorAll('.autopark__track, .video-strip').forEach(initTrack);
+  document.querySelectorAll('.autopark__track, .video-strip, .gallery').forEach(initTrack);
 }

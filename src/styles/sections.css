@@ -313,13 +313,17 @@
 .carousel__arrow.is-off { display: none; }                         /* всё влезло — стрелки не нужны */
 @media (min-width: 1024px) { .carousel__arrow--prev { left: 18px; } .carousel__arrow--next { right: 18px; } }
 
-/* ─── ГАЛЕРЕЯ «Больше фото» ──────────────────────────────────────────────── */
-.gallery { display: grid; gap: var(--space-3); grid-template-columns: repeat(2, 1fr); margin-top: var(--space-6); }
-.gallery__item { margin: 0; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--line); }
+/* ─── ГАЛЕРЕЯ «Больше фото» — ГОРИЗОНТАЛЬНАЯ ЛЕНТА (не портянка вниз) ─────── */
+.gallery {
+  display: flex; gap: var(--space-3); overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: var(--space-6) 0 var(--space-3); margin-top: 0;
+  -webkit-overflow-scrolling: touch; scrollbar-width: thin;
+}
+.gallery__item { flex: 0 0 72%; max-width: 360px; scroll-snap-align: center; margin: 0; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--line); }
 .gallery__item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform var(--dur) var(--ease-out); }
 .gallery__item:hover img { transform: scale(1.04); }
-@media (min-width: 640px)  { .gallery { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 1024px) { .gallery { grid-template-columns: repeat(4, 1fr); gap: var(--space-4); } }
+@media (min-width: 640px)  { .gallery__item { flex-basis: 40%; } }
+@media (min-width: 1024px) { .gallery__item { flex-basis: 24%; } }
 
 /* кликабельное медиа (лайтбокс) */
 .lb-clickable { cursor: pointer; }
