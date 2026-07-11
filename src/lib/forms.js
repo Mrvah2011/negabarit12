@@ -12,7 +12,9 @@ import { track, getUTM } from './analytics.js';
 
 // Web3Forms — заявки уходят на info@negabarit12.com. Ключ привязан к этой почте.
 // Получить: web3forms.com → ввести info@negabarit12.com → вставить access-key сюда.
-const WEB3FORMS_KEY = ''; // TODO: вставить access-key Web3Forms
+// Ключ формы Web3Forms. Получатель заявок настраивается в кабинете Web3Forms
+// (Settings → Recipient Emails → info@negabarit12.com), а не в коде.
+const WEB3FORMS_KEY = '4fbe66b4-e62f-43b8-af61-73735e0731c9';
 const WEB3FORMS_URL = 'https://api.web3forms.com/submit';
 
 /* --- Маска телефона РФ: +7 (XXX) XXX-XX-XX --- */

@@ -282,13 +282,10 @@
         <span class="badge badge--success"><svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M20 6 9 17l-5-5"/></svg> Межрегиональное разрешение по РФ — от 12 000 ₽, за 7 дней</span>
         <div><button class="btn btn--primary" data-modal-open="modal-callback">Узнать, нужно ли разрешение для моего груза</button></div>
       </div>
-      <!-- Артефакт: скан разрешения. Плейсхолдер — заказчик пришлёт реальный скан. -->
+      <!-- Артефакт: реальная выписка из Федерального реестра спецразрешений КТГ -->
       <figure class="ktg__art artefact" data-reveal data-parallax="0.08">
-        <div class="artefact__placeholder">
-          <svg class="icon" viewBox="0 0 24 24" width="48" height="48"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
-          <span>Скан межрегионального разрешения КТГ</span>
-        </div>
-        <figcaption>Реальное разрешение, а не «договоримся на месте». <em class="muted">(артефакт пришлёт заказчик)</em></figcaption>
+        <picture><source srcset="assets/img/artifacts/ktg-preview.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/artifacts/ktg-preview.webp" alt="Выписка из Федерального реестра специальных разрешений КТГ — ООО «Негабарит 12»" /></picture>
+        <figcaption>Реальная выписка из Федерального реестра спецразрешений — а не «договоримся на месте». <a href="assets/docs/ktg-obrazec.pdf" target="_blank" rel="noopener" class="link">Смотреть полностью (PDF)</a></figcaption>
       </figure>
     </div>
   </section>
@@ -343,8 +340,8 @@
           </div>
           <!-- артефакты: фото где есть, плейсхолдер где документ пришлёт заказчик -->
           <figure class="process__art artefact is-active"><div class="artefact__placeholder"><svg class="icon" viewBox="0 0 24 24" width="44" height="44"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 20h10M8 8h8M8 12h5"/></svg><span>Скрин расчёта стоимости</span></div></figure>
-          <figure class="process__art artefact"><div class="artefact__placeholder"><svg class="icon" viewBox="0 0 24 24" width="44" height="44"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span>Образец договора (фрагмент)</span></div></figure>
-      <figure class="process__art artefact"><div class="artefact__placeholder"><svg class="icon" viewBox="0 0 24 24" width="44" height="44"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M9 15l2 2 4-4"/></svg><span>Скан разрешения КТГ</span></div></figure>
+          <figure class="process__art artefact"><picture><source srcset="assets/img/artifacts/dogovor-preview.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/artifacts/dogovor-preview.webp" alt="Образец договора на перевозку — ООО «Негабарит 12»" /></picture></figure>
+      <figure class="process__art artefact"><picture><source srcset="assets/img/artifacts/ktg-preview.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/artifacts/ktg-preview.webp" alt="Спецразрешение КТГ — выписка из Федерального реестра" /></picture></figure>
       <figure class="process__art artefact"><picture><source srcset="assets/img/autopark/photo-12.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/autopark/photo-12.webp" alt="Подача трала под погрузку" /></picture></figure>
       <figure class="process__art artefact"><picture><source srcset="assets/img/autopark/photo-14.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/autopark/photo-14.webp" alt="Погрузка и крепление груза краном" /></picture></figure>
       <figure class="process__art artefact"><div class="artefact__placeholder"><svg class="icon" viewBox="0 0 24 24" width="44" height="44"><path d="M12 22s8-4.5 8-11a8 8 0 1 0-16 0c0 6.5 8 11 8 11Z"/><circle cx="12" cy="11" r="2.5"/></svg><span>Скрин GPS-мониторинга</span></div></figure>
@@ -603,7 +600,7 @@
         <p><strong>ООО «Негабарит 12»</strong></p>
         <p class="muted tabular">ИНН 1215207230 · КПП 121501001 · ОГРН 1161215050325</p>
         <p class="muted">Юридический адрес: 424039, Респ. Марий Эл, г. Йошкар-Ола, ул. Дружбы, д. 100, оф. 213.</p>
-        <p class="muted">Генеральный директор Смирнов С. М. (действует на основании устава). <a href="assets/docs/" class="link">Образец договора (PDF)</a> — добавим по получении.</p>
+        <p class="muted">Генеральный директор Смирнов С. М. (действует на основании устава). <a href="assets/docs/dogovor-obrazec.pdf" target="_blank" rel="noopener" class="link">Образец договора (PDF)</a>.</p>
       </div>
     </div>
   </section>
@@ -623,26 +620,7 @@
     </div>
   </section>
 
-  <!-- ════════ ЭКРАН 14 — ЛИД-МАГНИТ ════════ -->
-  <section class="section leadmagnet">
-    <div class="container leadmagnet__card" data-reveal>
-      <div class="leadmagnet__text">
-        <p class="eyebrow">Бесплатно</p>
-        <h2 class="section-title">Чек-лист: как перевезти негабарит и не получить штраф 600 000 ₽</h2>
-        <p class="lead">Скачайте PDF — что проверить до перевозки, какие разрешения нужны и где теряют деньги.</p>
-      </div>
-      <form class="jsform leadmagnet__form" data-event="lead_magnet" novalidate>
-        <input type="text" name="company_site" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <label class="field"><span class="field__label">Имя*</span><input name="name" autocomplete="name" required /><span class="field__error"></span></label>
-        <label class="field"><span class="field__label">Телефон / мессенджер*</span><input type="tel" name="phone" autocomplete="tel" required /><span class="field__error"></span></label>
-        <label class="field field--check"><input type="checkbox" name="consent" required /><span>Согласен с обработкой данных</span><span class="field__error"></span></label>
-        <button class="btn btn--primary btn--block" type="submit">Получить чек-лист</button>
-        <div class="thanks" data-thanks hidden><h3>Готово!</h3><p class="muted">Прислали чек-лист в мессенджер. Проверьте сообщения.</p></div>
-      </form>
-    </div>
-  </section>
-
-  <!-- ════════ ЭКРАН 15 — ФИНАЛЬНЫЙ CTA + КОНТАКТЫ ════════ -->
+  <!-- ════════ ФИНАЛЬНЫЙ CTA + КОНТАКТЫ ════════ -->
   <section id="contacts" class="section final">
     <div class="container final__row">
       <div class="final__text" data-reveal>
