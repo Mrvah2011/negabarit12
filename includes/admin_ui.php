@@ -81,6 +81,7 @@ function admin_nav(): void {
         'vacancies.php'=> 'Вакансии',
         'leads.php'    => 'Заявки',
         'media.php'    => 'Медиа',
+        'docs.php'     => 'Документы (РКН)',
         'settings.php' => 'Настройки',
     ];
     foreach ($items as $file => $label) {

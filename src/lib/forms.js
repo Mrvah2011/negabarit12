@@ -10,12 +10,9 @@
 
 import { track, getUTM } from './analytics.js';
 
-// Web3Forms — заявки уходят на info@negabarit12.com. Ключ привязан к этой почте.
-// Получить: web3forms.com → ввести info@negabarit12.com → вставить access-key сюда.
-// Ключ формы Web3Forms. Получатель заявок настраивается в кабинете Web3Forms
-// (Settings → Recipient Emails → info@negabarit12.com), а не в коде.
-const WEB3FORMS_KEY = '4fbe66b4-e62f-43b8-af61-73735e0731c9';
-const WEB3FORMS_URL = 'https://api.web3forms.com/submit';
+// Заявки уходят на серверный обработчик (PHP на Beget): пишет в БД + шлёт на
+// info@negabarit12.com через SMTP. Российская инфраструктура (152-ФЗ).
+const SUBMIT_URL = '/submit.php';
 
 /* --- Маска телефона РФ: +7 (XXX) XXX-XX-XX --- */
 export function maskPhone(input) {
@@ -63,37 +60,17 @@ function validateForm(form) {
 }
 
 async function submitForm(form) {
-  const data = Object.fromEntries(new FormData(form).entries());
-  Object.assign(data, getUTM());                 // UTM скрытыми полями
-  data.page = location.pathname;
   const eventName = form.dataset.event || 'lead_final';
+  const fd = new FormData(form);              // все поля + чекбоксы согласий
+  fd.append('form', eventName);
+  fd.append('page', location.pathname);
+  Object.entries(getUTM()).forEach(([k, v]) => fd.append(k, v)); // UTM
 
-  if (WEB3FORMS_KEY) {
-    // тема письма по типу формы — чтобы в почте было видно источник заявки
-    const subjects = {
-      lead_calc: 'Заявка с калькулятора — Негабарит 12',
-      lead_callback: 'Заказ звонка — Негабарит 12',
-      lead_magnet: 'Запрос чек-листа — Негабарит 12',
-      lead_final: 'Заявка с сайта — Негабарит 12',
-    };
-    const res = await fetch(WEB3FORMS_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({
-        access_key: WEB3FORMS_KEY,
-        subject: subjects[eventName] || 'Заявка с сайта — Негабарит 12',
-        from_name: 'Сайт Негабарит 12',
-        ...data,
-      }),
-    });
-    const json = await res.json().catch(() => ({}));
-    if (!res.ok || json.success === false) throw new Error('Web3Forms ' + res.status);
-  } else {
-    // ключ ещё не задан — не блокируем демонстрацию UX
-    console.info('[lead] (Web3Forms key не задан) ', eventName, data);
-    await new Promise((r) => setTimeout(r, 500));
-  }
-  track(eventName, { cargo: data.cargo_type, route: data.route_from });
+  const res = await fetch(SUBMIT_URL, { method: 'POST', body: fd });
+  const json = await res.json().catch(() => ({ ok: false }));
+  if (!json.ok) throw new Error(json.error || 'Ошибка отправки');
+
+  track(eventName, { cargo: fd.get('cargo_type'), route: fd.get('route_from') });
 }
 
 /** Подмена формы на экран благодарности с конкретикой (ТЗ §4). */

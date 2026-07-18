@@ -1,0 +1,697 @@
+<?php require_once __DIR__ . '/includes/site.php'; ?>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Перевозка негабаритных грузов по России и СНГ — ООО «Негабарит 12», Йошкар-Ола</title>
+  <meta name="description" content="Перевозим негабарит с фиксированной ценой в договоре. Собственный автопарк тралов, оформление спецразрешений КТГ, страхование ответственности до 200 млн ₽, GPS-трекинг, логист 24/7. На рынке с 2016 года." />
+  <meta name="theme-color" content="#0E1116" />
+  <link rel="icon" href="assets/logo/logo-orange.png" />
+
+  <!-- OG для шеринга -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ООО «Негабарит 12» — перевозка негабаритных грузов" />
+  <meta property="og:description" content="Фиксированная цена в договоре, собственные тралы, КТГ за наш счёт, страхование ответственности до 200 млн ₽." />
+  <meta property="og:image" content="assets/img/hero-poster.jpg" />
+
+  <!-- Шрифты: Inter Tight (заголовки) + Inter (текст). display=swap — без FOIT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Стили: токены → база → секции -->
+  <link rel="stylesheet" href="src/styles/tokens.css" />
+  <link rel="stylesheet" href="src/styles/base.css" />
+  <link rel="stylesheet" href="src/styles/sections.css" />
+  <link rel="canonical" href="https://negabarit12.vercel.app/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content="перевозка негабаритных грузов, негабарит, трал, КТГ, спецтехника, Йошкар-Ола, перевозка негабарита по России и СНГ" />
+  <meta name="geo.region" content="RU-MARI" />
+  <meta name="geo.placename" content="Йошкар-Ола" />
+  <meta name="geo.position" content="56.6388;47.8908" />
+  <meta name="ICBM" content="56.6388, 47.8908" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:url" content="https://negabarit12.vercel.app/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MovingCompany",
+    "name": "ООО «Негабарит 12»",
+    "url": "https://negabarit12.vercel.app/",
+    "telephone": "+78002501444",
+    "foundingDate": "2016",
+    "areaServed": ["RU", "CIS", "CN"],
+    "description": "Перевозка негабаритных грузов по России, СНГ и Китаю. Фиксированная цена в договоре, оформление спецразрешений КТГ, страхование ответственности до 200 млн ₽, GPS-трекинг, логист 24/7.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "ул. Дружбы, д. 100, оф. 213",
+      "addressLocality": "Йошкар-Ола",
+      "addressRegion": "Республика Марий Эл",
+      "postalCode": "424039",
+      "addressCountry": "RU"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 56.6388, "longitude": 47.8908 },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "00:00", "closes": "23:59"
+    }
+  }
+  </script>
+</head>
+<body>
+
+<!-- ════════ ПРЕЛОАДЕР hero-секвенции (зебра-полоса прогресса) ════════ -->
+<div id="preloader" class="preloader" role="status" aria-live="polite">
+  <div class="preloader__inner">
+    <img src="assets/logo/logo-orange.png" alt="" class="preloader__logo" width="120" height="120" />
+    <div class="preloader__bar"><span class="preloader__bar-fill"></span></div>
+    <div class="preloader__pct"><span id="preloader-pct">0%</span> · готовим видеоскролл</div>
+  </div>
+</div>
+
+<!-- ════════ STICKY HEADER (появляется после hero) ════════ -->
+<header class="header">
+  <div class="container header__row">
+    <a href="#hero" class="header__logo" data-scroll="#hero" aria-label="Негабарит 12 — на главную">
+      <img src="assets/logo/logo-orange.png" alt="ООО «Негабарит 12»" height="40" />
+      <span>НЕГАБАРИТ&nbsp;12</span>
+    </a>
+    <nav class="header__actions">
+      <a class="header__nav-link" href="/blog">Новости и статьи</a>
+      <a class="header__nav-link" href="/team">Наша команда</a>
+      <a class="header__phone" href="tel:<?= e(setting('phone_tel')) ?>"><?= e(setting('phone')) ?></a>
+      <button class="btn btn--primary header__cta" data-scroll="#quiz">Рассчитать стоимость</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ════════ ЭКРАН 1 — HERO + ВИДЕОСКРОЛЛ ════════ -->
+  <section id="hero" class="hero">
+    <div class="hero__sticky">
+      <!-- постер: мгновенный first paint и fallback для mobile/reduced-motion -->
+      <picture><source media="(max-width:768px)" srcset="assets/img/hero-poster-m.avif" type="image/avif"><source media="(max-width:768px)" srcset="assets/img/hero-poster-m.webp"><source srcset="assets/img/hero-poster.avif" type="image/avif"><img class="hero__poster" src="assets/img/hero-poster.webp" alt="Негабаритный груз на трале в сопровождении на трассе" /></picture>
+      <!-- canvas: покадровая секвенция (рисует sequence.js) -->
+      <canvas id="hero-canvas" class="hero__canvas" aria-hidden="true"></canvas>
+      <div class="hero__scrim"></div>
+
+      <!-- мини-CTA «Заказать звонок» в углу -->
+      <button class="hero__callback" data-modal-open="modal-callback">Заказать звонок</button>
+
+      <div class="hero__content container">
+        <h1 class="hero__h1">Перевезём негабарит<br>с&nbsp;фиксированной ценой в&nbsp;договоре</h1>
+        <p class="lead hero__sub">Собственный автопарк тралов, а не перепродажа заявок с Авито. Оформляем спецразрешения КТГ за свой счёт и несём полную материальную ответственность за груз.</p>
+        <ul class="hero__bullets">
+          <li><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Цена в договоре — без доплат за мосты и ГИБДД</li>
+          <li><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg> Страхование ответственности перевозчика до 200 млн ₽</li>
+          <li><svg class="icon icon--accent" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> GPS-трекинг и логист на связи 24/7</li>
+        </ul>
+        <div class="hero__cta">
+          <button class="btn btn--primary btn--lg" data-scroll="#quiz">Рассчитать стоимость с гарантией цены</button>
+          <a class="btn btn--ghost btn--lg" href="tel:<?= e(setting('phone_tel')) ?>">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>
+            Позвонить
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__scrollhint" aria-hidden="true">
+        <span>Листайте — груз поедет</span>
+        <svg viewBox="0 0 24 24" class="icon"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 2 — КВИЗ-КАЛЬКУЛЯТОР ════════ -->
+  <section id="quiz-section" class="section">
+    <div class="container">
+      <div class="section-head center" data-reveal>
+        <h2 class="section-title center" style="margin-inline:auto">Узнайте стоимость перевозки за 3 минуты</h2>
+        <p class="lead section-intro" style="margin-inline:auto">В расчёт уже включены страховка, сопровождение и оформление КТГ. Сумма фиксируется в договоре и не меняется в пути.</p>
+      </div>
+
+      <div id="quiz" class="quiz card" data-reveal>
+        <div class="quiz__bar"><span class="quiz__bar-fill"></span></div>
+        <div class="quiz__counter muted" aria-live="polite">Шаг 1 из 5</div>
+
+        <!-- Шаг 1: тип груза -->
+        <div class="quiz__step is-active" data-step="1" data-key="cargo_type">
+          <h3>Что везём?</h3>
+          <div class="quiz__choices">
+            <button class="quiz__choice" data-value="spec">Спецтехника</button>
+            <button class="quiz__choice" data-value="equip">Промоборудование</button>
+            <button class="quiz__choice" data-value="metal">Конструкции / металл</button>
+            <button class="quiz__choice" data-value="long">Длинномер</button>
+            <button class="quiz__choice" data-value="other">Другое</button>
+          </div>
+        </div>
+
+        <!-- Шаг 2: габариты -->
+        <div class="quiz__step" data-step="2">
+          <h3>Габариты и вес</h3>
+          <div class="quiz__grid">
+            <label class="field"><span class="field__label">Длина, м</span><input class="quiz__input" name="dim_l" inputmode="decimal" placeholder="12,5" required /><span class="field__error"></span></label>
+            <label class="field"><span class="field__label">Ширина, м</span><input class="quiz__input" name="dim_w" inputmode="decimal" placeholder="3,4" required /><span class="field__error"></span></label>
+            <label class="field"><span class="field__label">Высота, м</span><input class="quiz__input" name="dim_h" inputmode="decimal" placeholder="3,8" required /><span class="field__error"></span></label>
+            <label class="field"><span class="field__label">Вес, т</span><input class="quiz__input" name="weight" inputmode="decimal" placeholder="34" required /><span class="field__error"></span></label>
+          </div>
+          <p class="quiz__hint muted">Не знаете точно — укажите примерно, уточним при звонке.</p>
+          <div class="quiz__nav"><button class="btn btn--ghost" data-prev>Назад</button><button class="btn btn--primary" data-next>Далее</button></div>
+        </div>
+
+        <!-- Шаг 3: маршрут -->
+        <div class="quiz__step" data-step="3">
+          <h3>Маршрут</h3>
+          <div class="quiz__grid quiz__grid--2">
+            <label class="field"><span class="field__label">Откуда</span><input class="quiz__input" name="route_from" placeholder="Йошкар-Ола" required /><span class="field__error"></span></label>
+            <label class="field"><span class="field__label">Куда</span><input class="quiz__input" name="route_to" placeholder="Сургут" required /><span class="field__error"></span></label>
+          </div>
+          <div class="quiz__nav"><button class="btn btn--ghost" data-prev>Назад</button><button class="btn btn--primary" data-next>Далее</button></div>
+        </div>
+
+        <!-- Шаг 4: срочность -->
+        <div class="quiz__step" data-step="4" data-key="urgency">
+          <h3>Когда нужно?</h3>
+          <div class="quiz__choices">
+            <button class="quiz__choice" data-value="urgent">Срочно (24–48 ч)</button>
+            <button class="quiz__choice" data-value="week">На этой неделе</button>
+            <button class="quiz__choice" data-value="plan">Планирую заранее</button>
+          </div>
+        </div>
+
+        <!-- Шаг 5: контакты (это .jsform — финальный сабмит) -->
+        <div class="quiz__step" data-step="5">
+          <h3>Куда отправить расчёт?</h3>
+          <form class="jsform quiz__form" data-event="lead_calc" novalidate>
+            <!-- скрытые поля: параметры груза из шагов 1–4 -->
+            <input type="hidden" name="cargo_type" /><input type="hidden" name="dim_l" /><input type="hidden" name="dim_w" />
+            <input type="hidden" name="dim_h" /><input type="hidden" name="weight" /><input type="hidden" name="route_from" />
+            <input type="hidden" name="route_to" /><input type="hidden" name="urgency" />
+            <!-- honeypot (скрыт от людей, ловит ботов) -->
+            <input type="text" name="company_site" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+            <div class="quiz__grid quiz__grid--2">
+              <label class="field"><span class="field__label">Имя*</span><input name="name" autocomplete="name" required /><span class="field__error"></span></label>
+              <label class="field"><span class="field__label">Телефон*</span><input type="tel" name="phone" autocomplete="tel" required /><span class="field__error"></span></label>
+            </div>
+            <fieldset class="field field--radio">
+              <span class="field__label">Куда удобнее ответить?</span>
+              <label class="radio"><input type="radio" name="messenger" value="whatsapp" checked /> WhatsApp</label>
+              <label class="radio"><input type="radio" name="messenger" value="telegram" /> Telegram</label>
+            </fieldset>
+            <?php consent_fields(); ?>
+            <p class="form__error" role="alert" hidden></p>
+            <div class="quiz__nav">
+              <button class="btn btn--ghost" type="button" data-prev>Назад</button>
+              <button class="btn btn--primary btn--lg" type="submit">Зафиксировать стоимость в договоре</button>
+            </div>
+            <p class="quiz__micro muted">Перезвоним в течение 15 минут. Без спама и навязывания.</p>
+
+            <div class="thanks" data-thanks hidden>
+              <svg class="icon icon--success" viewBox="0 0 24 24" width="40" height="40"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
+              <h3>Готово. Логист перезвонит в течение 15 минут.</h3>
+              <p class="muted">Зафиксируем цену в договоре. Если срочно — <?= e(setting('phone')) ?>.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="zebra-divider" aria-hidden="true"></div>
+
+  <!-- ════════ ЭКРАН 3 — ЦИФРЫ ════════ -->
+  <section class="section section--tight stats">
+    <div class="container">
+      <!-- Цифры. 12 000+ и 30+ — ПРИМЕРЫ (заглушки), заменить на подтверждённые заказчиком. -->
+      <div class="stats__grid" data-reveal-stagger>
+        <div class="stat"><span class="stat__num tabular" data-count="2016">2016</span><span class="stat__label">год основания · 10 лет на рынке</span></div>
+        <div class="stat"><span class="stat__num tabular"><span data-count="12000" data-suffix="+">12 000+</span></span><span class="stat__label">перевозок выполнено</span></div>
+        <div class="stat"><span class="stat__num tabular"><span data-count="50" data-suffix="+">50+</span></span><span class="stat__label">единиц собственной техники</span></div>
+        <div class="stat"><span class="stat__num tabular">до <span data-count="200">200</span> млн ₽</span><span class="stat__label">страхование ответственности перевозчика</span></div>
+        <div class="stat"><span class="stat__num">24/7</span><span class="stat__label">логист на связи</span></div>
+        <div class="stat"><span class="stat__num stat__num--text">Международные</span><span class="stat__label">перевозки по РФ, СНГ, Китаю</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 4 — JTBD «С кем мы работаем» ════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">С чем приходят</p>
+        <h2 class="section-title">Найдите свою задачу — расчёт подставится сам</h2>
+      </div>
+      <div class="grid md:cols-2 lg:cols-3 jtbd" data-reveal-stagger>
+        <button class="jtbd-card" data-cargo="spec" data-cargo-label="Спецтехника">
+          <svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M3 17h13v-5l-3-4H3zM16 17h5v-3l-2-2h-3"/><circle cx="6.5" cy="18.5" r="2"/><circle cx="18" cy="18.5" r="2"/></svg>
+          <h3>Перевезти спецтехнику</h3><p class="muted">Экскаваторы, краны, бульдозеры с площадки на объект.</p><span class="jtbd-card__go">Рассчитать →</span>
+        </button>
+        <button class="jtbd-card" data-cargo="equip" data-cargo-label="Промоборудование">
+          <svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg>
+          <h3>Доставить промоборудование</h3><p class="muted">Станки, турбины, трансформаторы, ёмкости на завод/стройку.</p><span class="jtbd-card__go">Рассчитать →</span>
+        </button>
+        <button class="jtbd-card" data-cargo="long" data-cargo-label="Длинномер и конструкции">
+          <svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M2 12h20M2 9v6M22 9v6"/></svg>
+          <h3>Вывезти длинномер и конструкции</h3><p class="muted">Балки, фермы, опоры, трубы большого диаметра.</p><span class="jtbd-card__go">Рассчитать →</span>
+        </button>
+        <button class="jtbd-card" data-cargo="project" data-cargo-label="Проектная перевозка">
+          <svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h12"/></svg>
+          <h3>Проектная перевозка под ключ</h3><p class="muted">Разово или серией, с маршрутом, разрешениями и сопровождением.</p><span class="jtbd-card__go">Рассчитать →</span>
+        </button>
+        <button class="jtbd-card" data-cargo="intl" data-cargo-label="Негабарит в СНГ/Китай">
+          <svg class="icon icon--accent" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>
+          <h3>Перевезти негабарит в СНГ/Китай</h3><p class="muted">Международное направление с таможенным оформлением.</p><span class="jtbd-card__go">Рассчитать →</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 5 — БЕЗОПАСНОСТЬ И РАЗРЕШЕНИЯ (КТГ) ════════ -->
+  <section class="section ktg">
+    <div class="container ktg__row">
+      <div class="ktg__text" data-reveal>
+        <span class="badge badge--warn"><svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Штраф Ространснадзора до 600 000 ₽</span>
+        <h2 class="section-title">Работаем «в белую»: оформляем официальные спецразрешения КТГ</h2>
+        <p class="lead">С нами вы не получите штраф до 600 000 ₽. Берём всю бюрократию на себя: согласование маршрута с уполномоченными органами, разрешение на негабарит, машины прикрытия. Груз едет легально и без задержек на постах ГИБДД и Ространснадзора.</p>
+        <span class="badge badge--success"><svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M20 6 9 17l-5-5"/></svg> Межрегиональное разрешение по РФ — от 12 000 ₽, за 7 дней</span>
+        <div><button class="btn btn--primary" data-modal-open="modal-callback">Узнать, нужно ли разрешение для моего груза</button></div>
+      </div>
+      <!-- Артефакт: реальная выписка из Федерального реестра спецразрешений КТГ -->
+      <figure class="ktg__art artefact" data-reveal data-parallax="0.08">
+        <picture><source srcset="assets/img/artifacts/ktg-preview.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/artifacts/ktg-preview.webp" alt="Выписка из Федерального реестра специальных разрешений КТГ — ООО «Негабарит 12»" /></picture>
+        <figcaption>Реальная выписка из Федерального реестра спецразрешений — а не «договоримся на месте». <a href="assets/docs/ktg-obrazec.pdf" target="_blank" rel="noopener" class="link">Смотреть полностью (PDF)</a></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 6 — АВТОПАРК (свайп-лента) ════════ -->
+  <section class="section autopark">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Техника своя</p>
+        <h2 class="section-title">Собственный автопарк</h2>
+        <p class="lead section-intro">Тягачи DAF, Volvo, Renault и тралы под разный вес и габариты. Подберём платформу под вашу задачу, а не «что нашлось на бирже».</p>
+        <span class="badge badge--success autopark__count"><svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M3 17h13v-5l-3-4H3zM16 17h5v-3l-2-2h-3"/><circle cx="6.5" cy="18.5" r="2"/><circle cx="18" cy="18.5" r="2"/></svg> 50+ автомобилей в собственном автопарке</span>
+      </div>
+    </div>
+    <!-- горизонтальная свайп-лента с явными индикаторами (без скрытого drag-only) -->
+    <div class="autopark__track" role="list">
+      <figure class="autopark__item" role="listitem"><picture><source srcset="assets/img/autopark/photo-04.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/autopark/photo-04.webp" alt="Тягач Volvo с тралом и спецтехникой" /></picture><figcaption>Volvo + трал-низкорамник</figcaption></figure>
+      <figure class="autopark__item" role="listitem"><picture><source srcset="assets/img/autopark/photo-44.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/autopark/photo-44.webp" alt="Тягач с длинномерным грузом на трассе" /></picture><figcaption>Перевозка длинномера</figcaption></figure>
+      <figure class="autopark__item" role="listitem"><picture><source srcset="assets/img/autopark/photo-12.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/autopark/photo-12.webp" alt="Автопарк тягачей компании" /></picture><figcaption>Часть собственного автопарка</figcaption></figure>
+      <figure class="autopark__item" role="listitem"><picture><source srcset="assets/img/autopark/photo-09.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/autopark/photo-09.webp" alt="Тягач с цистерной в зимней перевозке" /></picture><figcaption>Цистерна, зимний маршрут</figcaption></figure>
+      <figure class="autopark__item" role="listitem"><picture><source srcset="assets/img/autopark/photo-33.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/autopark/photo-33.webp" alt="Volvo с промышленным грузом" /></picture><figcaption>Промоборудование на трале</figcaption></figure>
+      <figure class="autopark__item" role="listitem"><picture><source srcset="assets/img/autopark/photo-47.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/autopark/photo-47.webp" alt="Низкорамный трал с тяжёлой техникой" /></picture><figcaption>Низкорамник под тяжёлую технику</figcaption></figure>
+      <figure class="autopark__item" role="listitem"><picture><source srcset="assets/img/autopark/photo-40.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/autopark/photo-40.webp" alt="Тягач с ёмкостями большого диаметра" /></picture><figcaption>Ёмкости большого диаметра</figcaption></figure>
+      <figure class="autopark__item" role="listitem"><picture><source srcset="assets/img/autopark/photo-01.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/autopark/photo-01.webp" alt="Спецтехника на трале 18,1×3,1×4,1 м, 96 т" /></picture><figcaption>18,1 × 3,1 × 4,1 м · 96 т</figcaption></figure>
+    </div>
+  </section>
+
+  <div class="zebra-divider" aria-hidden="true"></div>
+
+  <!-- ════════ ЭКРАН 7 — ЭТАПЫ РАБОТЫ (pinned scrollytelling) ════════ -->
+  <section id="process" class="section process">
+    <div class="process__pin">
+      <div class="container process__inner">
+        <div class="process__left">
+          <p class="eyebrow">Как мы работаем</p>
+          <h2 class="section-title">7 этапов — каждый с артефактом, а не на словах</h2>
+          <ol class="process__steps">
+            <li class="process__step is-active"><span class="process__n">01</span><div><h3>Заявка и расчёт</h3><p class="muted">Считаем точную стоимость с учётом габаритов, маршрута, разрешений и сопровождения.</p></div></li>
+            <li class="process__step"><span class="process__n">02</span><div><h3>Договор с фиксированной ценой</h3><p class="muted">Сумма закрепляется в договоре и не меняется ни на рубль. Без доплат за топливо, мосты и ГИБДД.</p></div></li>
+            <li class="process__step"><span class="process__n">03</span><div><h3>Оформление КТГ</h3><p class="muted">Получаем официальное спецразрешение и согласовываем маршрут.</p></div></li>
+            <li class="process__step"><span class="process__n">04</span><div><h3>Подача трала</h3><p class="muted">Подбираем платформу под вес и габариты, выезд оперативно.</p></div></li>
+            <li class="process__step"><span class="process__n">05</span><div><h3>Погрузка и крепление по ГОСТу</h3><p class="muted">Крепим сертифицированными системами и присылаем фотоотчёт до старта двигателя.</p></div></li>
+            <li class="process__step"><span class="process__n">06</span><div><h3>Перевозка с GPS-трекингом</h3><p class="muted">Логист на связи 24/7, видите перемещение груза в реальном времени.</p></div></li>
+            <li class="process__step"><span class="process__n">07</span><div><h3>Выгрузка и закрытие</h3><p class="muted">Сдаём груз без царапин, оформляем закрывающие документы.</p></div></li>
+          </ol>
+          <button class="btn btn--primary" data-scroll="#quiz">Запустить перевозку по этим этапам</button>
+        </div>
+
+        <div class="process__right">
+          <div class="process__dots" aria-hidden="true">
+            <span class="process__dot is-active"></span><span class="process__dot"></span><span class="process__dot"></span><span class="process__dot"></span><span class="process__dot"></span><span class="process__dot"></span><span class="process__dot"></span>
+          </div>
+          <!-- артефакты: фото где есть, плейсхолдер где документ пришлёт заказчик -->
+          <figure class="process__art artefact is-active"><div class="artefact__placeholder"><svg class="icon" viewBox="0 0 24 24" width="44" height="44"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 20h10M8 8h8M8 12h5"/></svg><span>Скрин расчёта стоимости</span></div></figure>
+          <figure class="process__art artefact"><picture><source srcset="assets/img/artifacts/dogovor-preview.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/artifacts/dogovor-preview.webp" alt="Образец договора на перевозку — ООО «Негабарит 12»" /></picture></figure>
+      <figure class="process__art artefact"><picture><source srcset="assets/img/artifacts/ktg-preview.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/artifacts/ktg-preview.webp" alt="Спецразрешение КТГ — выписка из Федерального реестра" /></picture></figure>
+      <figure class="process__art artefact"><picture><source srcset="assets/img/autopark/photo-12.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/autopark/photo-12.webp" alt="Подача трала под погрузку" /></picture></figure>
+      <figure class="process__art artefact"><picture><source srcset="assets/img/autopark/photo-14.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/autopark/photo-14.webp" alt="Погрузка и крепление груза краном" /></picture></figure>
+      <figure class="process__art artefact"><picture><source srcset="assets/img/artifacts/gps-preview.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/artifacts/gps-preview.webp" alt="GPS-мониторинг: Volvo FH «Негабарит 12» в движении на трассе" /></picture></figure>
+      <figure class="process__art artefact"><picture><source srcset="assets/img/autopark/photo-33.avif" type="image/avif"><img loading="lazy" decoding="async" src="assets/img/autopark/photo-33.webp" alt="Выгрузка доставленного груза" /></picture></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 8 — СОХРАННОСТЬ + ВИДЕО-АРТЕФАКТ ════════ -->
+  <section class="section safety">
+    <div class="container">
+      <div class="section-head center" data-reveal>
+        <h2 class="section-title center" style="margin-inline:auto">Груз приедет без царапин</h2>
+        <p class="lead section-intro" style="margin-inline:auto">Крепление по ГОСТу, фотоотчёт перед выездом, страхование ответственности до 200 млн ₽ и чёткая политика компенсаций. Видите перемещение через GPS в реальном времени.</p>
+      </div>
+      <p class="video-strip__cap muted center" data-reveal>Видео наших негабаритных перевозок · нажмите, чтобы открыть на весь экран</p>
+      <!-- лента реальных видео перевозок: muted/loop/playsinline, lazy (data-src). Клик → лайтбокс. -->
+      <div class="video-strip" data-reveal role="list" aria-label="Видео наших негабаритных перевозок">
+        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/care1.mp4" poster="assets/video/care1-poster.webp" muted loop playsinline preload="none" aria-label="Видео нашей негабаритной перевозки"></video></figure>
+        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/care2.mp4" poster="assets/video/care2-poster.webp" muted loop playsinline preload="none" aria-label="Видео нашей негабаритной перевозки"></video></figure>
+        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/care3.mp4" poster="assets/video/care3-poster.webp" muted loop playsinline preload="none" aria-label="Видео нашей негабаритной перевозки"></video></figure>
+        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/care4.mp4" poster="assets/video/care4-poster.webp" muted loop playsinline preload="none" aria-label="Видео нашей негабаритной перевозки"></video></figure>
+        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/care5.mp4" poster="assets/video/care5-poster.webp" muted loop playsinline preload="none" aria-label="Видео нашей негабаритной перевозки"></video></figure>
+        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/care6.mp4" poster="assets/video/care6-poster.webp" muted loop playsinline preload="none" aria-label="Видео нашей негабаритной перевозки"></video></figure>
+        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/care7.mp4" poster="assets/video/care7-poster.webp" muted loop playsinline preload="none" aria-label="Видео нашей негабаритной перевозки"></video></figure>
+        <figure class="video-strip__item" role="listitem"><video data-src="assets/video/care8.mp4" poster="assets/video/care8-poster.webp" muted loop playsinline preload="none" aria-label="Видео нашей негабаритной перевозки"></video></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 9 — ЦЕНА: ЧТО ВХОДИТ + МЫ vs ЧАСТНИК ════════ -->
+  <section class="section price">
+    <div class="container">
+      <div class="price__includes" data-reveal>
+        <h2 class="section-title">Что уже включено в цену</h2>
+        <ul class="checklist">
+          <li><svg class="icon icon--success" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Страхование ответственности перевозчика</li>
+          <li><svg class="icon icon--success" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Оформление КТГ</li>
+          <li><svg class="icon icon--success" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Машины сопровождения</li>
+          <li><svg class="icon icon--success" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Крепление по ГОСТу</li>
+          <li><svg class="icon icon--success" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Логист 24/7</li>
+          <li><svg class="icon icon--success" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> GPS-трекинг</li>
+          <li><svg class="icon icon--success" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Фиксированная цена в договоре</li>
+        </ul>
+        <p class="lead">Кажется, что у частника дешевле? В нашу цену уже включено то, за что у других доплачивают по факту — страхование, КТГ, сопровождение и крепление по ГОСТу.</p>
+      </div>
+
+      <div class="price__compare" data-reveal>
+        <table class="compare">
+          <thead><tr><th></th><th class="compare__us">ООО «Негабарит 12»</th><th>Частник с Авито</th></tr></thead>
+          <tbody>
+            <tr><td>Цена</td><td class="compare__us">Фиксирована в договоре</td><td>«От…», растёт в пути</td></tr>
+            <tr><td>Разрешение КТГ</td><td class="compare__us">Оформляем официально</td><td>Часто едет «по-серому»</td></tr>
+            <tr><td>Ответственность</td><td class="compare__us">По договору, ответственность застрахована до 200 млн ₽</td><td>Устная, без гарантий</td></tr>
+            <tr><td>Автопарк</td><td class="compare__us">Собственный</td><td>Перепродажа заявки</td></tr>
+            <tr><td>Связь</td><td class="compare__us">Личный логист 24/7</td><td>Пропадает со связи</td></tr>
+            <tr><td>Оплата</td><td class="compare__us">После доставки, перед выгрузкой</td><td>Предоплата вперёд</td></tr>
+          </tbody>
+        </table>
+        <button class="btn btn--primary btn--block" data-scroll="#quiz">Получить честный расчёт без «от…»</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 10 — ЛИЧНЫЙ ЛОГИСТ ════════ -->
+  <section class="section logist">
+    <div class="container logist__row">
+      <div data-reveal>
+        <p class="eyebrow">Связь не теряется</p>
+        <h2 class="section-title">Ваш логист на связи 24/7</h2>
+        <p class="lead">Забудьте об ожидании на горячей линии. Персональный менеджер ведёт вас от заявки до выгрузки, присылает статус груза в Telegram по первому запросу.</p>
+        <a class="btn btn--primary" href="<?= e(setting('telegram_url')) ?>" target="_blank" rel="noopener">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          Написать логисту в Telegram
+        </a>
+      </div>
+      <div class="logist__card card" data-reveal>
+        <div class="logist__row-item"><svg class="icon icon--accent" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><div><strong>Отдел логистики</strong><br><span class="muted">сопровождение перевозки от заявки до выгрузки</span></div></div>
+        <div class="logist__row-item"><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M3 7h18v12H3zM3 7l9 6 9-6"/></svg><div><strong>Тендерный отдел</strong><br><span class="muted">работа с торгами и проектными перевозками</span></div></div>
+        <a class="logist__phone" href="tel:<?= e(setting('phone_tel')) ?>"><?= e(setting('phone')) ?></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 11 — КЕЙСЫ ════════ -->
+  <section class="section cases">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Реальные перевозки</p>
+        <h2 class="section-title">Кейсы клиентов — груз, маршрут, габариты</h2>
+      </div>
+      <div class="cases__filter" data-reveal>
+        <button class="is-active" data-filter="all">Все</button>
+        <button data-filter="equip">Оборудование</button>
+        <button data-filter="tank">Ёмкости</button>
+        <button data-filter="spec">Спецтехника</button>
+      </div>
+      <div class="cases__grid" data-reveal-stagger>
+<?php foreach (db()->query("SELECT * FROM cases WHERE status='published' ORDER BY sort, id") as $c): ?>
+        <article class="case-card" data-type="<?= e($c['type']) ?>">
+          <?php if ($c['cover']): ?><picture><img loading="lazy" decoding="async" src="<?= e($c['cover']) ?>" alt="<?= e($c['title'] . ' — ' . $c['route']) ?>" /></picture><?php endif; ?>
+          <div class="case-card__body"><h3><?= e($c['title']) ?></h3>
+            <?php if ($c['route']): ?><p class="case-card__route"><svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg> <?= e($c['route']) ?></p><?php endif; ?>
+            <?php if ($c['dims']): ?><p class="case-card__dims"><?= e($c['dims']) ?></p><?php endif; ?>
+          </div>
+        </article>
+<?php endforeach; ?>
+      </div>
+      <p class="cases__note muted center" data-reveal>Все кейсы — реальные перевозки. Добавляем новые по мере поступления фото и видео.</p>
+    </div>
+  </section>
+
+  <div class="zebra-divider" aria-hidden="true"></div>
+
+  <!-- ════════ ГАЛЕРЕЯ — БОЛЬШЕ ФОТО С ПЕРЕВОЗОК ════════ -->
+  <section class="section gallery-section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Ещё с рейсов</p>
+        <h2 class="section-title">Больше фото с перевозок</h2>
+        <p class="lead section-intro">Реальные кадры с наших маршрутов. Нажмите на фото — откроется на весь экран, листайте стрелками.</p>
+      </div>
+      <div class="gallery" data-reveal role="list" aria-label="Фотогалерея перевозок">
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-001.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-002.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-003.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-004.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-005.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-006.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-007.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-008.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-009.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-010.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-011.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-012.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-013.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-014.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-015.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-016.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-017.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-018.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-019.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-020.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-021.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-022.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-023.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-024.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-025.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-026.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-027.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-028.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-029.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-030.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-031.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-032.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-033.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-034.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-035.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-036.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-037.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-038.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-039.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-040.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-041.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-042.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-043.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-044.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-045.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-046.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-047.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-048.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-049.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-050.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-051.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-052.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-053.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-054.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-055.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-056.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-057.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-058.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-059.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-060.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-061.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-062.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-063.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-064.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-065.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-066.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-067.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-068.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-069.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-070.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-071.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-072.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-073.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-074.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-075.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-076.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-077.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-078.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-079.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-080.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-081.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-082.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-083.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-084.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+        <figure class="gallery__item" role="listitem"><img loading="lazy" decoding="async" src="assets/img/gallery/g-085.webp" alt="Фото с перевозки негабаритного груза" /></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 12 — ГАРАНТИИ + ЮР. ПРОЗРАЧНОСТЬ ════════ -->
+  <section id="legal" class="section guarantees">
+    <div class="container">
+      <div class="section-head" data-reveal><h2 class="section-title">Гарантии и юридическая прозрачность</h2></div>
+      <div class="grid md:cols-2 lg:cols-4 guarantees__grid" data-reveal-stagger>
+        <div class="guarantee"><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><h3>Фиксированная цена в договоре</h3></div>
+        <div class="guarantee"><svg class="icon icon--accent" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg><h3>Оплата после доставки</h3></div>
+        <div class="guarantee"><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg><h3>Страхование ответственности до 200 млн ₽</h3></div>
+        <div class="guarantee"><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><h3>Компенсация при повреждении — по регламенту</h3></div>
+      </div>
+      <div class="legal-block card" data-reveal>
+        <p><strong>ООО «Негабарит 12»</strong></p>
+        <p class="muted tabular">ИНН 1215207230 · КПП 121501001 · ОГРН 1161215050325</p>
+        <p class="muted">Юридический адрес: 424039, Респ. Марий Эл, г. Йошкар-Ола, ул. Дружбы, д. 100, оф. 213.</p>
+        <p class="muted">Генеральный директор Смирнов С. М. (действует на основании устава). <a href="assets/docs/dogovor-obrazec.pdf" target="_blank" rel="noopener" class="link">Образец договора (PDF)</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ЭКРАН 13 — FAQ ════════ -->
+  <section class="section faq">
+    <div class="container faq__container">
+      <div class="section-head" data-reveal><h2 class="section-title">Частые вопросы</h2></div>
+      <div class="faq__list" data-reveal>
+        <div class="faq__item"><button class="faq__q" aria-expanded="false">Почему цена не «от…», а фиксированная?<span class="faq__icon"></span></button><div class="faq__a"><p>Мы считаем полную стоимость заранее — с разрешениями, сопровождением и страховкой — и закрепляем её в договоре. В пути сумма не меняется: ни за топливо, ни за мосты, ни за посты ГИБДД.</p></div></div>
+        <div class="faq__item"><button class="faq__q" aria-expanded="false">Что будет, если у груза нет точных габаритов?<span class="faq__icon"></span></button><div class="faq__a"><p>Укажите примерные размеры в калькуляторе — мы уточним их при звонке и подберём подходящую платформу. Финальная цена фиксируется после уточнения.</p></div></div>
+        <div class="faq__item"><button class="faq__q" aria-expanded="false">Вы реально оформляете разрешение КТГ или едете «по-серому»?<span class="faq__icon"></span></button><div class="faq__a"><p>Оформляем официальное межрегиональное спецразрешение и согласовываем маршрут с уполномоченными органами. Это входит в стоимость. Груз едет легально.</p></div></div>
+        <div class="faq__item"><button class="faq__q" aria-expanded="false">Когда платить — до или после доставки?<span class="faq__icon"></span></button><div class="faq__a"><p>Оплата после доставки, перед выгрузкой. Предоплата вперёд не требуется.</p></div></div>
+        <div class="faq__item"><button class="faq__q" aria-expanded="false">Что если груз повредят — как получить компенсацию?<span class="faq__icon"></span></button><div class="faq__a"><p>Ответственность перевозчика застрахована до 200 млн ₽, крепление по ГОСТу, перед выездом — фотоотчёт. При повреждении компенсация по чёткому регламенту, прописанному в договоре.</p></div></div>
+        <div class="faq__item"><button class="faq__q" aria-expanded="false">Сколько стоит и сколько занимает оформление разрешения?<span class="faq__icon"></span></button><div class="faq__a"><p>Межрегиональное разрешение по РФ — от 12 000 ₽, оформление за 7 дней. Берём процесс на себя.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <?php $bp = latest_posts(6); if ($bp): ?>
+  <div class="zebra-divider" aria-hidden="true"></div>
+  <section class="section home-blog">
+    <div class="container">
+      <div class="home-blog__head" data-reveal>
+        <div><p class="eyebrow">Блог компании</p><h2 class="section-title">Новости и статьи</h2></div>
+        <a class="btn btn--ghost" href="/blog">Все материалы →</a>
+      </div>
+      <div class="posts-grid" data-reveal-stagger>
+        <?php foreach ($bp as $p): ?>
+        <article class="post-card">
+          <a class="post-card__img" href="<?= e(post_url($p)) ?>"><?php if ($p['cover']): ?><img loading="lazy" src="<?= e($p['cover']) ?>" alt="<?= e($p['title']) ?>"><?php else: ?><span class="post-card__noimg">НЕГАБАРИТ 12</span><?php endif; ?></a>
+          <div class="post-card__body">
+            <div class="post-card__meta"><span><?= e(fmt_date($p['published_at'] ?: $p['created_at'])) ?></span><?php if ($p['cat_name']): ?><span class="post-card__cat"># <?= e($p['cat_name']) ?></span><?php endif; ?></div>
+            <h3 class="post-card__title"><a href="<?= e(post_url($p)) ?>"><?= e($p['title']) ?></a></h3>
+            <p class="post-card__excerpt"><?= e($p['excerpt']) ?></p>
+            <a class="post-card__more" href="<?= e(post_url($p)) ?>">Подробнее →</a>
+          </div>
+        </article>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </section>
+  <?php endif; ?>
+
+  <!-- ════════ ФИНАЛЬНЫЙ CTA + КОНТАКТЫ ════════ -->
+  <section id="contacts" class="section final">
+    <div class="container final__row">
+      <div class="final__text" data-reveal>
+        <h2 class="final__h2">Устали от цен «от…» и внезапных доплат в пути?</h2>
+        <p class="lead">Оставьте параметры груза — рассчитаем честную стоимость со страховкой и КТГ. Машина может выехать на погрузку оперативно после согласования.</p>
+        <ul class="final__contacts">
+          <li><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg><a href="tel:<?= e(setting('phone_tel')) ?>"><?= e(setting('phone')) ?></a></li>
+          <li><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M3 7h18v12H3zM3 7l9 6 9-6"/></svg><a href="mailto:<?= e(setting('email')) ?>"><?= e(setting('email')) ?></a></li>
+          <li><svg class="icon icon--accent" viewBox="0 0 24 24"><path d="M12 22s8-4.5 8-11a8 8 0 1 0-16 0c0 6.5 8 11 8 11Z"/><circle cx="12" cy="11" r="2.5"/></svg> Йошкар-Ола, ул. Дружбы, 100</li>
+          <li><svg class="icon icon--accent" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg><a href="https://instagram.com/negabarit12" target="_blank" rel="noopener">@negabarit12</a></li>
+        </ul>
+      </div>
+      <form class="jsform final__form card" data-event="lead_final" novalidate>
+        <input type="text" name="company_site" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <h3>Зафиксировать стоимость в договоре</h3>
+        <label class="field"><span class="field__label">Имя*</span><input name="name" autocomplete="name" required /><span class="field__error"></span></label>
+        <label class="field"><span class="field__label">Телефон*</span><input type="tel" name="phone" autocomplete="tel" required /><span class="field__error"></span></label>
+        <fieldset class="field field--radio"><span class="field__label">Мессенджер</span><label class="radio"><input type="radio" name="messenger" value="whatsapp" checked /> WhatsApp</label><label class="radio"><input type="radio" name="messenger" value="telegram" /> Telegram</label></fieldset>
+        <label class="field"><span class="field__label">Комментарий</span><textarea name="comment" rows="2" placeholder="Что и куда везём"></textarea></label>
+        <?php consent_fields(); ?>
+        <p class="form__error" role="alert" hidden></p>
+        <button class="btn btn--primary btn--block btn--lg" type="submit">Зафиксировать стоимость перевозки в договоре</button>
+        <div class="thanks" data-thanks hidden>
+          <svg class="icon icon--success" viewBox="0 0 24 24" width="40" height="40"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
+          <h3>Готово. Логист перезвонит в течение 15 минут.</h3>
+          <p class="muted"><?= e(setting('phone')) ?> · <?= e(setting('email')) ?></p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__row">
+    <span class="muted">© ООО «Негабарит 12», г. Йошкар-Ола · перевозка негабаритных грузов по РФ, СНГ, Китаю</span>
+    <a href="#hero" class="muted" data-scroll="#hero">Наверх ↑</a>
+  </div>
+</footer>
+
+<!-- ════════ ГЛОБАЛЬНЫЕ КОНВЕРСИОННЫЕ ЭЛЕМЕНТЫ ════════ -->
+
+<!-- Плавающая кнопка-мессенджер убрана: контакт в нижнем баре (mobile) и в шапке/контактах (desktop) -->
+
+<!-- Mobile sticky-бар -->
+<nav class="mobilebar" aria-label="Быстрые действия">
+  <a href="tel:<?= e(setting('phone_tel')) ?>"><svg class="icon" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg><span>Позвонить</span></a>
+  <a href="<?= e(setting('telegram_url')) ?>" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg><span>Telegram</span></a>
+  <button data-scroll="#quiz" class="mobilebar__cta"><svg class="icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h5"/></svg><span>Рассчитать</span></button>
+</nav>
+
+<!-- Модалка «Заказать звонок» -->
+<div class="modal" id="modal-callback" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Заказать звонок">
+  <div class="modal__box" data-form-host>
+    <button class="modal__close" data-modal-close aria-label="Закрыть">×</button>
+    <h3>Заказать звонок</h3>
+    <p class="muted">Перезвоним в течение 15 минут и ответим на вопросы по вашему грузу.</p>
+    <form class="jsform" data-event="lead_callback" novalidate>
+      <input type="text" name="company_site" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <label class="field"><span class="field__label">Имя*</span><input name="name" autocomplete="name" required /><span class="field__error"></span></label>
+      <label class="field"><span class="field__label">Телефон*</span><input type="tel" name="phone" autocomplete="tel" required /><span class="field__error"></span></label>
+      <?php consent_fields(); ?>
+      <p class="form__error" role="alert" hidden></p>
+      <button class="btn btn--primary btn--block" type="submit">Жду звонка</button>
+    </form>
+    <div class="thanks" data-thanks hidden><h3>Готово!</h3><p class="muted">Логист перезвонит в течение 15 минут.</p></div>
+  </div>
+</div>
+
+<!-- Cookie-баннер -->
+<div class="cookie" id="cookie">
+  <span class="muted">Сайт использует cookie и метрику для улучшения работы. Продолжая, вы соглашаетесь с <a href="#legal" data-scroll="#legal" class="link">политикой</a>.</span>
+  <button class="btn btn--ghost" onclick="this.closest('#cookie').remove()">Понятно</button>
+</div>
+
+<!-- Скрипты: GSAP + ScrollTrigger + Lenis (CDN), затем наш модуль -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
