@@ -18,6 +18,9 @@ Beget доступ/
 .env*
 secrets*
 *credentials*
+includes/config.php
+/data/
+/assets/uploads/
 
 # Системное
 .DS_Store
