@@ -78,6 +78,7 @@ function admin_nav(): void {
         'posts.php'    => 'Статьи и новости',
         'categories.php'=> 'Рубрики',
         'cases.php'    => 'Кейсы перевозок',
+        'team.php'     => 'Команда и галерея',
         'vacancies.php'=> 'Вакансии',
         'leads.php'    => 'Заявки',
         'media.php'    => 'Медиа',

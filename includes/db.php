@@ -89,5 +89,13 @@ function install_schema(): void {
     $q[] = "CREATE TABLE IF NOT EXISTS media (
         id $pk, path VARCHAR(255), created_at VARCHAR(32)) $eng";
 
+    $q[] = "CREATE TABLE IF NOT EXISTS team_members (
+        id $pk, name VARCHAR(160), role VARCHAR(200), photo VARCHAR(255),
+        sort INT DEFAULT 0, status VARCHAR(16) DEFAULT 'published') $eng";
+
+    $q[] = "CREATE TABLE IF NOT EXISTS team_gallery (
+        id $pk, photo VARCHAR(255), caption VARCHAR(200),
+        sort INT DEFAULT 0) $eng";
+
     foreach ($q as $sql) $pdo->exec($sql);
 }

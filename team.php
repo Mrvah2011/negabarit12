@@ -55,25 +55,18 @@
   <section class="section section--tight">
     <div class="container">
       <div class="section-head" data-reveal><h2 class="section-title">Кто ведёт вашу перевозку</h2></div>
+      <?php $members = db()->query("SELECT * FROM team_members WHERE status='published' ORDER BY sort, id")->fetchAll(); ?>
+      <?php if ($members): ?>
       <div class="grid md:cols-2 lg:cols-4 team-grid" data-reveal-stagger>
-        <!-- TODO: заменить плейсхолдеры реальными фото и именами сотрудников -->
+        <?php foreach ($members as $m): ?>
         <figure class="team-member">
-          <div class="team-member__photo artefact__placeholder"><span>Фото сотрудника</span></div>
-          <figcaption><strong>Имя Фамилия</strong><span class="muted">Руководитель отдела логистики</span></figcaption>
+          <?php if ($m['photo']): ?><div class="team-member__photo"><img loading="lazy" src="<?= e($m['photo']) ?>" alt="<?= e($m['name']) ?>"></div>
+          <?php else: ?><div class="team-member__photo artefact__placeholder"><span>Фото</span></div><?php endif; ?>
+          <figcaption><strong><?= e($m['name']) ?></strong><span class="muted"><?= e($m['role']) ?></span></figcaption>
         </figure>
-        <figure class="team-member">
-          <div class="team-member__photo artefact__placeholder"><span>Фото сотрудника</span></div>
-          <figcaption><strong>Имя Фамилия</strong><span class="muted">Логист сопровождения</span></figcaption>
-        </figure>
-        <figure class="team-member">
-          <div class="team-member__photo artefact__placeholder"><span>Фото сотрудника</span></div>
-          <figcaption><strong>Имя Фамилия</strong><span class="muted">Водитель-эксперт по негабариту</span></figcaption>
-        </figure>
-        <figure class="team-member">
-          <div class="team-member__photo artefact__placeholder"><span>Фото сотрудника</span></div>
-          <figcaption><strong>Имя Фамилия</strong><span class="muted">Тендерный отдел</span></figcaption>
-        </figure>
+        <?php endforeach; ?>
       </div>
+      <?php else: ?><p class="muted">Раздел наполняется.</p><?php endif; ?>
     </div>
   </section>
 
@@ -85,17 +78,16 @@
       <div class="section-head" data-reveal>
         <p class="eyebrow">Изнутри</p>
         <h2 class="section-title">Как мы работаем и отдыхаем</h2>
-        <p class="lead section-intro">Реальные кадры с погрузок, рейсов и из жизни команды. <em class="muted">(галерею наполним вашими фото)</em></p>
+        <p class="lead section-intro">Реальные кадры с погрузок, рейсов и из жизни команды.</p>
       </div>
+      <?php $gallery = db()->query("SELECT * FROM team_gallery ORDER BY sort, id")->fetchAll(); ?>
+      <?php if ($gallery): ?>
       <div class="grid md:cols-3 team-gallery" data-reveal-stagger>
-        <!-- TODO: заменить плейсхолдеры реальными фото процессов/отдыха -->
-        <div class="team-gallery__item artefact__placeholder"><span>Фото с погрузки</span></div>
-        <div class="team-gallery__item artefact__placeholder"><span>Фото из рейса</span></div>
-        <div class="team-gallery__item artefact__placeholder"><span>Команда на объекте</span></div>
-        <div class="team-gallery__item artefact__placeholder"><span>Будни автопарка</span></div>
-        <div class="team-gallery__item artefact__placeholder"><span>Корпоратив / отдых</span></div>
-        <div class="team-gallery__item artefact__placeholder"><span>Крепление груза</span></div>
+        <?php foreach ($gallery as $g): ?>
+        <figure class="team-gallery__item"><img loading="lazy" src="<?= e($g['photo']) ?>" alt="<?= e($g['caption'] ?: 'Фото перевозки') ?>"><?php if ($g['caption']): ?><figcaption class="muted"><?= e($g['caption']) ?></figcaption><?php endif; ?></figure>
+        <?php endforeach; ?>
       </div>
+      <?php else: ?><p class="muted">Галерея наполняется.</p><?php endif; ?>
     </div>
   </section>
 

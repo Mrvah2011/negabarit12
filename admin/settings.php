@@ -13,7 +13,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($f === 'smtp_pass' && post('smtp_pass') === '') continue;
         set_setting($f, post($f));
     }
-    flash('ok', 'Настройки сохранены');
+    // смена пароля админа (если заполнено поле нового пароля)
+    if (post('new_pass') !== '') {
+        $a = current_admin();
+        $st = db()->prepare("SELECT * FROM admins WHERE id=?"); $st->execute([$a['id']]); $row = $st->fetch();
+        if (!$row || !password_verify(post('cur_pass'), $row['pass_hash'])) flash('err', 'Текущий пароль админа неверный — пароль не изменён');
+        elseif (mb_strlen(post('new_pass')) < 8) flash('err', 'Новый пароль слишком короткий (минимум 8 символов)');
+        else { db()->prepare("UPDATE admins SET pass_hash=? WHERE id=?")->execute([password_hash(post('new_pass'), PASSWORD_DEFAULT), $a['id']]); flash('ok', 'Пароль админки изменён'); }
+    }
+    if (!isset($_SESSION['flash']) || !array_filter($_SESSION['flash'], fn($f)=>$f[0]==='err')) flash('ok', 'Настройки сохранены');
     redirect('/admin/settings.php');
 }
 
@@ -58,6 +66,15 @@ admin_header('Настройки');
     <label>Согласие на рассылку (добровольное)</label><input type="text" name="consent_news" value="<?= $v('consent_news') ?>">
   </div>
 
-  <button class="btn btn-p" type="submit">Сохранить настройки</button>
+  <div class="card">
+    <strong>Смена пароля в админку</strong>
+    <p class="hint">Заполните оба поля, чтобы сменить пароль. Оставьте пустыми — пароль не меняется.</p>
+    <div class="row c2">
+      <div><label>Текущий пароль</label><input type="password" name="cur_pass" autocomplete="off" value=""></div>
+      <div><label>Новый пароль (мин. 8 символов)</label><input type="password" name="new_pass" autocomplete="new-password" value=""></div>
+    </div>
+  </div>
+
+  <button class="btn btn-p" type="submit">Сохранить</button>
 </form>
 <?php admin_footer();

@@ -126,12 +126,14 @@ function csrf_check(): void {
 /* --- 3 чек-бокса согласий для форм (ПДн + политика обязательны, рассылка нет) --- */
 function consent_fields(): void {
     ?>
-    <label class="field field--check"><input type="checkbox" name="consent_pdn" value="1" required />
-      <span><?= e(setting('consent_pdn')) ?> — <a href="/soglasie" target="_blank" class="link">подробнее</a></span><span class="field__error"></span></label>
-    <label class="field field--check"><input type="checkbox" name="consent_policy" value="1" required />
-      <span><?= e(setting('consent_policy')) ?> — <a href="/politika" target="_blank" class="link">подробнее</a></span><span class="field__error"></span></label>
-    <label class="field field--check"><input type="checkbox" name="consent_news" value="1" />
-      <span><?= e(setting('consent_news')) ?></span></label>
+    <div class="form-consents">
+      <label class="field field--check"><input type="checkbox" name="consent_pdn" value="1" required />
+        <span><?= e(setting('consent_pdn')) ?> — <a href="/soglasie" target="_blank" class="link">подробнее</a></span><span class="field__error"></span></label>
+      <label class="field field--check"><input type="checkbox" name="consent_policy" value="1" required />
+        <span><?= e(setting('consent_policy')) ?> — <a href="/politika" target="_blank" class="link">подробнее</a></span><span class="field__error"></span></label>
+      <label class="field field--check"><input type="checkbox" name="consent_news" value="1" />
+        <span><?= e(setting('consent_news')) ?></span></label>
+    </div>
     <?php
 }
 
