@@ -19,6 +19,7 @@ Beget доступ/
 secrets*
 *credentials*
 includes/config.php
+includes/config.beget.php
 /data/
 /assets/uploads/
 
