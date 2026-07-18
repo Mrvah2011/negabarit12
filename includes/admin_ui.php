@@ -45,6 +45,19 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--act)}
 .flash.err{background:rgba(187,41,52,.12);border-color:#5a2a2a;color:#ff9a9a}
 .muted{color:var(--mut)}.thumb{width:64px;height:44px;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
 @media(max-width:800px){.wrap{flex-direction:column}.side{width:auto;height:auto;position:static;display:flex;flex-wrap:wrap}.side h1{width:100%}.side a{flex:1 0 auto}}
+/* CKEditor — тёмная тема под нашу админку (иначе текст блёклый/невидимый) */
+.ck.ck-editor__main>.ck-editor__editable{background:var(--bg)!important;color:var(--ink)!important;border-color:var(--line)!important;min-height:340px}
+.ck.ck-editor__editable_inline{padding:14px 18px!important}
+.ck-content,.ck-content p,.ck-content li,.ck-content h2,.ck-content h3,.ck-content strong{color:var(--ink)!important}
+.ck-content a{color:var(--acth)!important}
+.ck-content blockquote{border-left:3px solid var(--act);color:var(--mut)!important;background:var(--bg2)}
+.ck.ck-editor__editable_inline.ck-focused{border-color:var(--act)!important;box-shadow:none!important}
+.ck.ck-toolbar{background:var(--bg3)!important;border-color:var(--line)!important}
+.ck.ck-button,.ck.ck-toolbar .ck-button .ck-icon{color:var(--ink)!important}
+.ck.ck-button:hover{background:var(--line)!important}
+.ck.ck-dropdown__panel,.ck.ck-list{background:var(--bg2)!important;border-color:var(--line)!important}
+.ck.ck-list__item .ck-button{color:var(--ink)!important}
+.ck.ck-list__item .ck-button:hover{background:var(--bg3)!important}
 </style>
 </head><body>
 <div class="wrap">
