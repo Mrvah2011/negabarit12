@@ -30,3 +30,8 @@ node_modules/
 *.log
 install.php
 seed_content.php
+
+# временные артефакты деплоя
+deploy.zip
+_unzip.php
+_deploy/
