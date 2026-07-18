@@ -281,10 +281,18 @@
 .footer__row { display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: space-between; align-items: center; font-size: var(--fs-sm); }
 
 
-/* ─── СОГЛАСИЯ В ФОРМАХ (ровный левый столбик) ──────────────────────────── */
-.form-consents { display: grid; gap: var(--space-2); margin: var(--space-2) 0 var(--space-3); text-align: left; }
-.form-consents .field--check { width: 100%; margin: 0; grid-template-columns: 20px 1fr; align-items: start; }
-.form-consents .field--check span { font-size: var(--fs-sm); line-height: 1.4; }
+/* ─── СОГЛАСИЯ В ФОРМАХ — ровный левый столбик (flex, а не grid) ─────────── */
+.form-consents { display: block; margin: var(--space-3) 0; }
+.form-consents label.field--check {
+  display: flex !important; align-items: flex-start; gap: 10px;
+  width: 100%; margin: 0 0 10px; padding: 0; grid-template-columns: none;
+  text-align: left;
+}
+.form-consents label.field--check input[type="checkbox"] {
+  flex: 0 0 20px; width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--action);
+}
+.form-consents label.field--check > span:not(.field__error) { flex: 1; font-size: var(--fs-sm); line-height: 1.45; }
+.form-consents .field__error { flex-basis: 100%; margin-left: 30px; }
 
 /* ─── БЛОГ (список статей/новостей) ─────────────────────────────────────── */
 .cases__filter a { padding: var(--space-2) var(--space-4); border-radius: 999px; border: 1px solid var(--line); color: var(--ink-muted); font-weight: 600; font-size: var(--fs-sm); transition: all var(--dur); }
