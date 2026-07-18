@@ -28,3 +28,4 @@ includes/config.beget.php
 Thumbs.db
 node_modules/
 *.log
+install.php

@@ -1,0 +1,35 @@
+# Негабарит 12 — маршрутизация (Apache/Beget)
+DirectoryIndex index.php index.html
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Блог: /blog и /blog/{slug}
+  RewriteRule ^blog/?$ blog.php [L,QSA]
+  RewriteRule ^blog/([A-Za-z0-9\-]+)/?$ article.php?slug=$1 [L,QSA]
+
+  # Команда: /team
+  RewriteRule ^team/?$ team.html [L]
+
+  # Политика/согласие
+  RewriteRule ^politika/?$ politika.php [L]
+  RewriteRule ^soglasie/?$ soglasie.php [L]
+</IfModule>
+
+# Закрыть доступ к служебному
+<FilesMatch "^(config|db|functions|site|admin_ui)\.php$">
+  # includes подключаются из кода, прямой доступ не нужен, но не критично
+</FilesMatch>
+<Files "config.php">
+  Require all denied
+</Files>
+
+# Кэш статики
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+</IfModule>
