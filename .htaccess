@@ -9,8 +9,8 @@ Options -Indexes
   RewriteRule ^blog/?$ blog.php [L,QSA]
   RewriteRule ^blog/([A-Za-z0-9\-]+)/?$ article.php?slug=$1 [L,QSA]
 
-  # Команда: /team
-  RewriteRule ^team/?$ team.html [L]
+  # Команда: /team (динамическая — вакансии из БД)
+  RewriteRule ^team/?$ team.php [L]
 
   # Политика/согласие
   RewriteRule ^politika/?$ politika.php [L]
