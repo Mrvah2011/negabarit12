@@ -11,6 +11,14 @@ _scan/
 .claude/
 .vercel/
 
+# СЕКРЕТЫ / ДОСТУПЫ — НИКОГДА не коммитить (публичный репозиторий!)
+Beget доступ/
+*доступ*
+*.env
+.env*
+secrets*
+*credentials*
+
 # Системное
 .DS_Store
 Thumbs.db
