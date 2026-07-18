@@ -8,6 +8,27 @@ require_once __DIR__ . '/PHPMailer/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 
+/** Отправка кода подтверждения (вход/смена пароля) на почту. @return bool */
+function send_code_email(string $to, string $code, string $purpose = 'вход в админку'): bool {
+    if (setting('smtp_pass') === '') return false;
+    try {
+        $m = new PHPMailer(true);
+        $m->isSMTP();
+        $m->Host = setting('smtp_host', 'smtp.beget.com'); $m->SMTPAuth = true;
+        $m->Username = setting('smtp_login'); $m->Password = setting('smtp_pass');
+        $m->SMTPSecure = setting('smtp_secure', 'ssl') === 'tls' ? PHPMailer::ENCRYPTION_STARTTLS : PHPMailer::ENCRYPTION_SMTPS;
+        $m->Port = (int) setting('smtp_port', 465); $m->CharSet = 'UTF-8';
+        $m->setFrom(setting('smtp_login'), 'Негабарит 12 CMS');
+        $m->addAddress($to);
+        $m->isHTML(true);
+        $m->Subject = 'Код подтверждения — ' . $purpose;
+        $m->Body = '<p>Код подтверждения (' . e($purpose) . '):</p><p style="font-size:26px;font-weight:bold;letter-spacing:4px">' . e($code) . '</p><p style="color:#888">Действует 10 минут. Если вы не запрашивали — проигнорируйте письмо.</p>';
+        $m->AltBody = "Код: $code (действует 10 минут)";
+        $m->send();
+        return true;
+    } catch (\Throwable $e) { error_log('[code-mail] ' . $e->getMessage()); return false; }
+}
+
 /** @return bool отправлено ли письмо */
 function send_lead_email(array $lead): bool {
     if (setting('smtp_pass') === '') return false; // почта не настроена — тихо выходим

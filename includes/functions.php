@@ -137,6 +137,24 @@ function consent_fields(): void {
     <?php
 }
 
+/* --- Коды подтверждения на почту (2FA для входа/смены пароля) --- */
+function issue_code(string $purpose, array $extra = []): string {
+    session_boot();
+    $code = str_pad((string) random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+    $_SESSION['otp'][$purpose] = ['hash' => password_hash($code, PASSWORD_DEFAULT), 'exp' => time() + 600, 'tries' => 0] + $extra;
+    return $code;
+}
+function otp_data(string $purpose): ?array { session_boot(); return $_SESSION['otp'][$purpose] ?? null; }
+function check_code(string $purpose, string $input): bool {
+    session_boot();
+    $d = $_SESSION['otp'][$purpose] ?? null;
+    if (!$d || time() > $d['exp'] || $d['tries'] >= 5) return false;
+    if (password_verify(trim($input), $d['hash'])) { unset($_SESSION['otp'][$purpose]); return true; }
+    $_SESSION['otp'][$purpose]['tries']++;
+    return false;
+}
+function clear_code(string $purpose): void { session_boot(); unset($_SESSION['otp'][$purpose]); }
+
 /* --- Прочее --- */
 function redirect(string $to): void { header('Location: ' . $to); exit; }
 function post(string $k, $d = ''): string { return trim((string)($_POST[$k] ?? $d)); }

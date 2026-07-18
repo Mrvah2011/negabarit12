@@ -8,20 +8,37 @@ $fields = ['phone','phone_tel','email','telegram_url','address','hr_email','hr_p
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();
-    foreach ($fields as $f) {
-        // пустой пароль SMTP не затираем существующий (чтобы не сбросить случайно)
-        if ($f === 'smtp_pass' && post('smtp_pass') === '') continue;
-        set_setting($f, post($f));
-    }
-    // смена пароля админа (если заполнено поле нового пароля)
-    if (post('new_pass') !== '') {
+    require_once __DIR__ . '/../includes/mailer.php';
+
+    // --- Смена пароля через код на почту (отдельная форма) ---
+    if (($_POST['pw_action'] ?? '') !== '') {
         $a = current_admin();
         $st = db()->prepare("SELECT * FROM admins WHERE id=?"); $st->execute([$a['id']]); $row = $st->fetch();
-        if (!$row || !password_verify(post('cur_pass'), $row['pass_hash'])) flash('err', 'Текущий пароль админа неверный — пароль не изменён');
-        elseif (mb_strlen(post('new_pass')) < 8) flash('err', 'Новый пароль слишком короткий (минимум 8 символов)');
-        else { db()->prepare("UPDATE admins SET pass_hash=? WHERE id=?")->execute([password_hash(post('new_pass'), PASSWORD_DEFAULT), $a['id']]); flash('ok', 'Пароль админки изменён'); }
+        if (post('code') !== '' && otp_data('pwchange')) {
+            $d = otp_data('pwchange');
+            if (check_code('pwchange', post('code'))) {
+                db()->prepare("UPDATE admins SET pass_hash=? WHERE id=?")->execute([$d['new_hash'], $a['id']]);
+                flash('ok', 'Пароль админки изменён');
+            } else flash('err', 'Неверный или просроченный код');
+        } else {
+            if (!$row || !password_verify(post('cur_pass'), $row['pass_hash'])) flash('err', 'Текущий пароль неверный');
+            elseif (mb_strlen(post('new_pass')) < 8) flash('err', 'Новый пароль слишком короткий (минимум 8 символов)');
+            elseif (setting('smtp_pass') === '') flash('err', 'Сначала настройте почту (SMTP) — код смены пароля отправляется на почту');
+            else {
+                $code = issue_code('pwchange', ['new_hash' => password_hash(post('new_pass'), PASSWORD_DEFAULT)]);
+                if (send_code_email(setting('smtp_to', setting('email')), $code, 'смена пароля админки')) flash('ok', 'Код отправлен на почту — введите его ниже и нажмите «Сменить пароль»');
+                else { clear_code('pwchange'); flash('err', 'Не удалось отправить код на почту'); }
+            }
+        }
+        redirect('/admin/settings.php');
     }
-    if (!isset($_SESSION['flash']) || !array_filter($_SESSION['flash'], fn($f)=>$f[0]==='err')) flash('ok', 'Настройки сохранены');
+
+    // --- Обычное сохранение настроек ---
+    foreach ($fields as $f) {
+        if ($f === 'smtp_pass' && post('smtp_pass') === '') continue; // пустой SMTP-пароль не затираем
+        set_setting($f, post($f));
+    }
+    flash('ok', 'Настройки сохранены');
     redirect('/admin/settings.php');
 }
 
@@ -66,15 +83,20 @@ admin_header('Настройки');
     <label>Согласие на рассылку (добровольное)</label><input type="text" name="consent_news" value="<?= $v('consent_news') ?>">
   </div>
 
-  <div class="card">
-    <strong>Смена пароля в админку</strong>
-    <p class="hint">Заполните оба поля, чтобы сменить пароль. Оставьте пустыми — пароль не меняется.</p>
-    <div class="row c2">
-      <div><label>Текущий пароль</label><input type="password" name="cur_pass" autocomplete="off" value=""></div>
-      <div><label>Новый пароль (мин. 8 символов)</label><input type="password" name="new_pass" autocomplete="new-password" value=""></div>
-    </div>
-  </div>
+  <button class="btn btn-p" type="submit">Сохранить настройки</button>
+</form>
 
-  <button class="btn btn-p" type="submit">Сохранить</button>
+<form method="post" class="card" autocomplete="off" style="margin-top:16px">
+  <?= csrf_field() ?><input type="hidden" name="pw_action" value="1">
+  <strong>Смена пароля в админку</strong>
+  <p class="hint">Введите текущий и новый пароль → на почту (<?= e(setting('smtp_to', setting('email'))) ?>) придёт код → введите код и нажмите «Сменить пароль».<?php if (setting('smtp_pass') === ''): ?> <span style="color:#ff9a9a">Сначала настройте почту (SMTP выше).</span><?php endif; ?></p>
+  <div class="row c2">
+    <div><label>Текущий пароль</label><input type="password" name="cur_pass"></div>
+    <div><label>Новый пароль (мин. 8 символов)</label><input type="password" name="new_pass"></div>
+  </div>
+  <?php if (otp_data('pwchange')): ?>
+  <label>Код из письма</label><input name="code" inputmode="numeric" maxlength="6" placeholder="6-значный код" autofocus>
+  <?php endif; ?>
+  <button class="btn btn-p" type="submit" style="margin-top:14px">Сменить пароль</button>
 </form>
 <?php admin_footer();
